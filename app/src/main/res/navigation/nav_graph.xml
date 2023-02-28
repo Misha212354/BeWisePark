@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.bewisepark.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_hubFragment"
+            app:destination="@id/hubFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hubFragment"
+        android:name="com.example.bewisepark.HubFragment"
+        android:label="fragment_hub"
+        tools:layout="@layout/fragment_hub" >
+        <action
+            android:id="@+id/action_hubFragment_to_newVehicleIdFragment"
+            app:destination="@id/newVehicleIdFragment" />
+        <action
+            android:id="@+id/action_hubFragment_to_submitFragment"
+            app:destination="@id/submitFragment" />
+        <action
+            android:id="@+id/action_hubFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
+        <action
+            android:id="@+id/action_hubFragment_to_deleteFragment"
+            app:destination="@id/deleteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newVehicleIdFragment"
+        android:name="com.example.bewisepark.NewVehicleIdFragment"
+        android:label="fragment_new_vehicle_id"
+        tools:layout="@layout/fragment_new_vehicle_id" >
+        <action
+            android:id="@+id/action_newVehicleIdFragment_to_hubFragment"
+            app:destination="@id/hubFragment" />
+        <action
+            android:id="@+id/action_newVehicleIdFragment_to_submitFragment"
+            app:destination="@id/submitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/submitFragment"
+        android:name="com.example.bewisepark.SubmitFragment"
+        android:label="fragment_submit"
+        tools:layout="@layout/fragment_submit" >
+        <action
+            android:id="@+id/action_submitFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="com.example.bewisepark.ViewFragment"
+        android:label="fragment_view"
+        tools:layout="@layout/fragment_view" >
+        <action
+            android:id="@+id/action_viewFragment_to_deleteFragment"
+            app:destination="@id/deleteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteFragment"
+        android:name="com.example.bewisepark.DeleteFragment"
+        android:label="fragment_delete"
+        tools:layout="@layout/fragment_delete" >
+        <action
+            android:id="@+id/action_deleteFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
+</navigation>
