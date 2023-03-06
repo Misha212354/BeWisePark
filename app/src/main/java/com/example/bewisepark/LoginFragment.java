@@ -8,6 +8,8 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,14 +61,37 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        view.findViewById(R.id.loginToHubButton).setOnClickListener(new View.OnClickListener() {
+
+        view.findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_hubFragment);
+
+                EditText nameField = view.findViewById(R.id.usernameField);
+                String name = nameField.getText().toString();
+
+                EditText passwordField = view.findViewById(R.id.passwordField);
+                String password = passwordField.getText().toString();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("username", name);
+
+                if(name.isBlank()){
+                    nameField.setError("Username is required");
+                    Toast.makeText(getActivity(),"Failed to Login!",Toast.LENGTH_LONG).show();
+                }
+                else if(password.isBlank()) {
+                    passwordField.setError("Password is required");
+                    Toast.makeText(getActivity(),"Failed to Login!",Toast.LENGTH_LONG).show();
+                }
+
+                else {
+                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_hubFragment, bundle);
+                }
+
             }
         });
-        // Inflate the layout for this fragment
         return view;
     }
 }

@@ -11,45 +11,54 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/submitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login_button_text"
+            android:text="@string/submit_button_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.175"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordField"
+            app:layout_constraintTop_toBottomOf="@+id/violationField"
+            app:layout_constraintVertical_bias="0.32" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/submitButton"
+            app:layout_constraintTop_toBottomOf="@+id/violationField"
             app:layout_constraintVertical_bias="0.32" />
 
         <EditText
-            android:id="@+id/passwordField"
+            android:id="@+id/violationField"
             android:layout_width="366dp"
             android:layout_height="48dp"
             android:layout_marginTop="12dp"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/prompt_password"
-            android:inputType="textPassword"
+            android:hint="@string/prompt_violation"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usernameField" />
+            app:layout_constraintTop_toBottomOf="@+id/carIdField" />
 
-        <EditText
-            android:id="@+id/usernameField"
+        <TextView
+            android:id="@+id/carIdField"
             android:layout_width="366dp"
             android:layout_height="48dp"
             android:layout_marginTop="72dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint='@string/prompt_username'
-            android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textColorHint="#757575"
+            android:text="PlaceHolder Text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
