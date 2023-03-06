@@ -59,16 +59,24 @@
         android:label="fragment_view"
         tools:layout="@layout/fragment_view" >
         <action
-            android:id="@+id/action_viewFragment_to_deleteFragment"
-            app:destination="@id/deleteFragment" />
+            android:id="@+id/action_viewFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+        <action
+            android:id="@+id/action_viewFragment_to_submitFragment"
+            app:destination="@id/submitFragment" />
     </fragment>
     <fragment
         android:id="@+id/deleteFragment"
         android:name="com.example.bewisepark.DeleteFragment"
         android:label="fragment_delete"
-        tools:layout="@layout/fragment_delete" >
+        tools:layout="@layout/fragment_delete" />
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.bewisepark.EditFragment"
+        android:label="fragment_edit"
+        tools:layout="@layout/fragment_edit" >
         <action
-            android:id="@+id/action_deleteFragment_to_viewFragment"
+            android:id="@+id/action_editFragment_to_viewFragment"
             app:destination="@id/viewFragment" />
     </fragment>
 </navigation>

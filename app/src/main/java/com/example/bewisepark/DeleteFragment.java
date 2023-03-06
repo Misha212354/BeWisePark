@@ -14,7 +14,7 @@ import android.view.ViewGroup;
  * Use the {@link DeleteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DeleteFragment extends Fragment {
+public class DeleteFragment extends Fragment {  // We could remove this Fragment, as we could make it part of the view
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -64,7 +64,7 @@ public class DeleteFragment extends Fragment {
         view.findViewById(R.id.deleteToViewButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_deleteFragment_to_viewFragment);
+                //Navigation.findNavController(view).navigate(R.id.action_deleteFragment_to_viewFragment);
             }
         });
 
