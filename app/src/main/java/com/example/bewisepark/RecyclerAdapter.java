@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,8 +48,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Car car = carIdList.get(position);
         holder.titleTextView.setText(car.getId());
         holder.rowCountTextView.setText(car.getViolation());
+        holder.rowCountEditText.setText(car.getViolation(), TextView.BufferType.EDITABLE);
 
         boolean isExpanded = carIdList.get(position).isExpanded();  // isExpanded checks if we expanded a row
+        boolean isExpendedEdit =  carIdList.get(position).isExpendedEdit();
+
+        holder.expandableLayoutEdit.setVisibility(isExpendedEdit ? View.VISIBLE : View.GONE); //FIX THIS PART
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);  // if false expanded row will be invisible and if true then it'll be visible
     }
 
@@ -56,9 +61,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private static final String TAG = "CarVH";
 
+        ConstraintLayout expandableLayoutEdit;
         TextView titleTextView, rowCountTextView;
+        EditText rowCountEditText;
         ConstraintLayout expandableLayout;
-        Button editButton, deleteButton;
+        Button editButton, deleteButton, submitButtonRecycler;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +74,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             titleTextView = itemView.findViewById(R.id.titleTextView);
             rowCountTextView = itemView.findViewById(R.id.rowCountTextView);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
+            expandableLayoutEdit = itemView.findViewById(R.id.expandableLayoutEdit);
+            rowCountEditText = itemView.findViewById(R.id.rowCountEditText);
+
+
 
             titleTextView.setOnClickListener(new View.OnClickListener() {  // expands the row
                 @Override
@@ -79,6 +90,32 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
             editButton = itemView.findViewById(R.id.editButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
+            submitButtonRecycler = itemView.findViewById(R.id.submitButtonRecycler);
+
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Car car = carIdList.get(getAdapterPosition());
+                    car.setExpanded(!car.isExpanded());
+                    car.setExpendedEdit(!car.isExpendedEdit());
+                    notifyItemChanged(getAdapterPosition());
+
+
+
+                }
+            });
+
+            submitButtonRecycler.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Car car = carIdList.get(getAdapterPosition());
+                    car.setExpendedEdit(!car.isExpendedEdit());
+
+                    car.setViolation(rowCountEditText.getText().toString());
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
+
 
             deleteButton.setOnClickListener(new View.OnClickListener() {  // deletes expanded row
                 @Override
@@ -88,21 +125,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
             });
 
-            editButton.setOnClickListener(new View.OnClickListener() {  // sends used to edit page, with selected ID present at top. Send through bundle.
-                @Override
-                public void onClick(View view2) {
-                    Car car = carIdList.get(getAdapterPosition());
-                    String carId = car.getId();
-                    String violation = car.getViolation();
-
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("carId", carId);
-                    bundle.putString("violation", violation);
-
-                    Navigation.findNavController(view2).navigate(R.id.action_viewFragment_to_editFragment, bundle);
-                }
-            });
+//            editButton.setOnClickListener(new View.OnClickListener() {  // sends used to edit page, with selected ID present at top. Send through bundle.
+//                @Override
+//                public void onClick(View view2) {
+//                    Car car = carIdList.get(getAdapterPosition());
+//                    String carId = car.getId();
+//                    String violation = car.getViolation();
+//
+//
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("carId", carId);
+//                    bundle.putString("violation", violation);
+//
+//                    Navigation.findNavController(view2).navigate(R.id.action_viewFragment_to_editFragment, bundle);
+//                }
+//            });
 
         }
 
