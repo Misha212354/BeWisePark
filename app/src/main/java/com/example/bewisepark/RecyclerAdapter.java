@@ -46,9 +46,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Car car = carIdList.get(position);
+
         holder.titleTextView.setText(car.getId());
+
         holder.rowCountTextView.setText(car.getViolation());
+        holder.makeTextView.setText(car.getMake());
+        holder.modelTextView.setText(car.getModel());
+        holder.plateTextView.setText(car.getPlate_number());
+
         holder.rowCountEditText.setText(car.getViolation(), TextView.BufferType.EDITABLE);
+        holder.makeEditText.setText(car.getMake(), TextView.BufferType.EDITABLE);
+        holder.modelEditText.setText(car.getModel(), TextView.BufferType.EDITABLE);
+        holder.plateEditText.setText(car.getPlate_number(), TextView.BufferType.EDITABLE);
 
         boolean isExpanded = carIdList.get(position).isExpanded();  // isExpanded checks if we expanded a row
         boolean isExpendedEdit =  carIdList.get(position).isExpendedEdit();
@@ -61,21 +70,30 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private static final String TAG = "CarVH";
 
-        ConstraintLayout expandableLayoutEdit;
-        TextView titleTextView, rowCountTextView;
-        EditText rowCountEditText;
-        ConstraintLayout expandableLayout;
+        ConstraintLayout expandableLayoutEdit, expandableLayout;
+        TextView titleTextView, rowCountTextView, makeTextView, modelTextView, plateTextView;
+        EditText rowCountEditText, makeEditText, modelEditText, plateEditText;
+
         Button editButton, deleteButton, submitButtonRecycler;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             // initialize textView variables and expandable layout
-            titleTextView = itemView.findViewById(R.id.titleTextView);
-            rowCountTextView = itemView.findViewById(R.id.rowCountTextView);
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             expandableLayoutEdit = itemView.findViewById(R.id.expandableLayoutEdit);
+
+            titleTextView = itemView.findViewById(R.id.titleTextView);
+            rowCountTextView = itemView.findViewById(R.id.rowCountTextView);
+            makeTextView = itemView.findViewById(R.id.makeTextView);
+            modelTextView = itemView.findViewById(R.id.modelTextView);
+            plateTextView = itemView.findViewById(R.id.plateTextView);
+
             rowCountEditText = itemView.findViewById(R.id.rowCountEditText);
+            makeEditText = itemView.findViewById(R.id.makeEditText);
+            modelEditText = itemView.findViewById(R.id.modelEditText);
+            plateEditText = itemView.findViewById(R.id.plateEditText);
+
 
 
 
@@ -112,6 +130,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     car.setExpendedEdit(!car.isExpendedEdit());
 
                     car.setViolation(rowCountEditText.getText().toString());
+                    car.setMake(makeEditText.getText().toString());
+                    car.setModel(modelEditText.getText().toString());
+                    car.setPlate_number(plateEditText.getText().toString());
+
                     notifyItemChanged(getAdapterPosition());
                 }
             });

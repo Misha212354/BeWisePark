@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,22 +80,14 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         // hardcoded items for our list of car Ids and violations for testing. Should be changed so that we are just using ids and violations from web. Can also add more attributes.
-        carIdList.add(new Car("1D4AEU", "Violation 233"));
-        carIdList.add(new Car("F3F43F", "Violation 234"));
-        carIdList.add(new Car("F3FGT5", "Violation 344"));
-        carIdList.add(new Car("G4G544", "Violation 543"));
-        carIdList.add(new Car("1D4AEU", "Violation 534"));
-        carIdList.add(new Car("F3F43F", "Violation 654"));
-        carIdList.add(new Car("F3FGT5", "Violation 454"));
-        carIdList.add(new Car("G4G544", "Violation 654"));
-        carIdList.add(new Car("1D4AEU", "Violation 344"));
-        carIdList.add(new Car("F3F43F", "Violation 933"));
-        carIdList.add(new Car("F3FGT5", "Violation 838"));
-        carIdList.add(new Car("G4G544", "Violation 909"));
-        carIdList.add(new Car("1D4AEU", "Violation 101"));
-        carIdList.add(new Car("F3F43F", "Violation 101"));
-        carIdList.add(new Car("F3FGT5", "Violation 232"));
-        carIdList.add(new Car("G4G544", "Violation 324"));
+
+        //we need 16 cars
+        List<String> idList = Arrays.asList("1D4AEU", "F3F43F", "F3FGT5", "G4G544", "1D4AEU","F3F43F","F3FGT5","G4G544", "G4G544", "G4G544");
+        Random random = new Random();
+
+        for(int i = 0; i < idList.size(); i++){
+            carIdList.add(new Car(idList.get(i), "Violation " + (random.nextInt(800)+100), "Honda", "Accord", "Black", "JFB8798"));
+        }
 
         recyclerAdapter = new RecyclerAdapter(carIdList);  // these two lines initiate the adapter which is going to display the info we just added
         recyclerView.setAdapter(recyclerAdapter);

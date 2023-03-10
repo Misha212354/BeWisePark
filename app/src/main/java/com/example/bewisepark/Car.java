@@ -4,9 +4,23 @@ package com.example.bewisepark;
 public class Car {
     private String id;
     private String violation;
+    private String make;
+    private String model;
+    private String color;
+    private String plate_number;
     private boolean expanded;
-
     private boolean expendedEdit;
+
+    public Car(String id, String violation, String make, String model, String color, String plate_number) {
+        this.id = id;
+        this.violation = violation;
+        this.make = make;
+        this.model = model;
+        this.color = color;
+        this.plate_number = plate_number;
+        this.expanded = false;
+        this.expendedEdit = false;
+    }
 
     public boolean isExpanded() {
         return expanded;
@@ -22,13 +36,6 @@ public class Car {
 
     public void setExpendedEdit(boolean expendedEdit) { this.expendedEdit = expendedEdit; }
 
-    public Car(String id, String violation){
-        this.id = id;
-        this.violation = violation;
-        this.expanded = false;
-        this.expendedEdit = false;
-    }
-
     public String getId(){
         return id;
     }
@@ -39,6 +46,38 @@ public class Car {
 
     public void setViolation(String violation) {
         this.violation = violation;
+    }
+
+    public String getMake() {
+        return make;
+    }
+
+    public void setMake(String make) {
+        this.make = make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getPlate_number() {
+        return plate_number;
+    }
+
+    public void setPlate_number(String plate_number) {
+        this.plate_number = plate_number;
     }
 
     @Override

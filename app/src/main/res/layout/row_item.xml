@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/yellow"
     android:padding="8dp">
 
     <androidx.cardview.widget.CardView
@@ -19,18 +20,20 @@
                 android:id="@+id/titleTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+                android:background="@color/yellow"
+                android:fontFamily="sans-serif-medium"
                 android:padding="16dp"
                 android:text="Car Id"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/blackish"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/expandableLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="397dp"
+                android:layout_height="188dp"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -44,10 +47,13 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="TextView"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Violation"
+                    android:textColor="@color/brown"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.116" />
 
                 <Button
                     android:id="@+id/editButton"
@@ -56,33 +62,95 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/blackish"
                     android:text="Edit"
+                    app:cornerRadius="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@+id/rowCountTextView"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.129" />
 
                 <Button
                     android:id="@+id/deleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/blackish"
                     android:text="@string/delete_button_text"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/editButton"
-                    app:layout_constraintHorizontal_bias="0.844"
-                    app:layout_constraintStart_toEndOf="@+id/rowCountTextView"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:cornerRadius="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editButton" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Make: "
+                    android:textColor="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rowCountTextView" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Model: "
+                    android:textColor="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Plate Number: "
+                    android:textColor="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+                <TextView
+                    android:id="@+id/makeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="make"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/rowCountTextView" />
+
+                <TextView
+                    android:id="@+id/modelTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="model"
+                    app:layout_constraintStart_toEndOf="@+id/textView3"
+                    app:layout_constraintTop_toBottomOf="@+id/makeTextView" />
+
+                <TextView
+                    android:id="@+id/plateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="plate number"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/modelTextView" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/expandableLayoutEdit"
-                android:layout_width="393dp"
-                android:layout_height="76dp"
+                android:layout_width="403dp"
+                android:layout_height="184dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -95,31 +163,103 @@
                     android:id="@+id/submitButtonRecycler"
                     android:layout_width="94dp"
                     android:layout_height="49dp"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/blackish"
                     android:text="Submit"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.844"
-                    app:layout_constraintStart_toEndOf="@+id/rowCountEditText"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/rowCountEditText"
-                    android:layout_width="178dp"
-                    android:layout_height="48dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:fontFamily="sans-serif-medium"
+                    android:inputType="textPersonName"
+                    android:text="Violation"
+                    android:textColor="@color/brown"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Make: "
+                    android:textColor="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rowCountEditText" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Model: "
+                    android:textColor="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Plate Number: "
+                    android:textColor="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+                <EditText
+                    android:id="@+id/makeEditText"
+                    android:layout_width="126dp"
+                    android:layout_height="19dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@null"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="Name"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@+id/textView13"
+                    app:layout_constraintTop_toBottomOf="@+id/rowCountEditText" />
+
+                <EditText
+                    android:id="@+id/modelEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Name"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/textView14"
+                    app:layout_constraintTop_toBottomOf="@+id/makeEditText" />
+
+                <EditText
+                    android:id="@+id/plateEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@null"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Name"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toEndOf="@+id/textView15"
+                    app:layout_constraintTop_toBottomOf="@+id/modelEditText" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
