@@ -29,8 +29,8 @@
             android:id="@+id/action_hubFragment_to_viewFragment"
             app:destination="@id/viewFragment" />
         <action
-            android:id="@+id/action_hubFragment_to_deleteFragment"
-            app:destination="@id/deleteFragment" />
+            android:id="@+id/action_hubFragment_to_scanFragment"
+            app:destination="@id/scanFragment" />
     </fragment>
     <fragment
         android:id="@+id/newVehicleIdFragment"
@@ -66,11 +66,6 @@
             app:destination="@id/submitFragment" />
     </fragment>
     <fragment
-        android:id="@+id/deleteFragment"
-        android:name="com.example.bewisepark.DeleteFragment"
-        android:label="fragment_delete"
-        tools:layout="@layout/fragment_delete" />
-    <fragment
         android:id="@+id/editFragment"
         android:name="com.example.bewisepark.EditFragment"
         android:label="fragment_edit"
@@ -79,4 +74,9 @@
             android:id="@+id/action_editFragment_to_viewFragment"
             app:destination="@id/viewFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/scanFragment"
+        android:name="com.example.bewisepark.ScanFragment"
+        android:label="fragment_scan"
+        tools:layout="@layout/fragment_scan" />
 </navigation>

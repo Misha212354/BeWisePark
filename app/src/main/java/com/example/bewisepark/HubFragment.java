@@ -76,10 +76,10 @@ public class HubFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.hubToDeleteButton).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.hubToScanButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_hubFragment_to_deleteFragment);
+                Navigation.findNavController(view).navigate(R.id.action_hubFragment_to_scanFragment);
             }
         });
 

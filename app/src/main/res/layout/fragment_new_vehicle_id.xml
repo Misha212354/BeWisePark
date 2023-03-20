@@ -45,5 +45,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nvidToHubButton"
             app:layout_constraintVertical_bias="0.027" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

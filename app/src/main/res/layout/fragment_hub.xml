@@ -34,15 +34,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hubToDeleteButton"
+            app:layout_constraintTop_toBottomOf="@+id/hubToScanButton"
             app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/hubToDeleteButton"
+            android:id="@+id/hubToScanButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="delete"
+            android:text="scan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hubToViewButton" />
