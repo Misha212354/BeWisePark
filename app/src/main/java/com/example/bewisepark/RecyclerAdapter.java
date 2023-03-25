@@ -1,9 +1,14 @@
 package com.example.bewisepark;
 
+
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -93,16 +98,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             makeEditText = itemView.findViewById(R.id.makeEditText);
             modelEditText = itemView.findViewById(R.id.modelEditText);
             plateEditText = itemView.findViewById(R.id.plateEditText);
+            plateEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
 
 
 
             titleTextView.setOnClickListener(new View.OnClickListener() {  // expands the row
+
                 @Override
                 public void onClick(View view) {
                     Car car = carIdList.get(getAdapterPosition());
-                    car.setExpanded(!car.isExpanded());
-                    notifyItemChanged(getAdapterPosition());
+                    if(car.isExpendedEdit() != true){
+                        car.setExpanded(!car.isExpanded());
+                        notifyItemChanged(getAdapterPosition());
+                    }else{
+                        Toast.makeText(view.getContext(), "Must Submit",Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
 
@@ -117,6 +129,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     car.setExpanded(!car.isExpanded());
                     car.setExpendedEdit(!car.isExpendedEdit());
                     notifyItemChanged(getAdapterPosition());
+
 
 
 

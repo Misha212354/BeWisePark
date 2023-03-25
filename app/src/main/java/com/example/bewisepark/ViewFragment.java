@@ -2,14 +2,17 @@ package com.example.bewisepark;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,6 +94,25 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
 
         recyclerAdapter = new RecyclerAdapter(carIdList);  // these two lines initiate the adapter which is going to display the info we just added
         recyclerView.setAdapter(recyclerAdapter);
+
+        recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                View firstItemView = layoutManager.findViewByPosition(0);
+
+                if (firstItemView != null) {
+                    int position = layoutManager.getPosition(firstItemView);
+
+                    if (position == 0) {
+                        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+                    } else {
+                        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+                    }
+                }
+            }
+        });
 
         view.findViewById(R.id.viewToAddButton).setOnClickListener(new View.OnClickListener() {
             @Override

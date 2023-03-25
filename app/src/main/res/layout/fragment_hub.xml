@@ -8,20 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HUB"
-            android:textSize="45sp"
-            app:layout_constraintBottom_toTopOf="@+id/hubToSubmitButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.594" />
+        android:layout_height="match_parent"
+        android:background="@color/beige">
 
         <Button
             android:id="@+id/hubToNewVehicleId"
@@ -66,5 +54,18 @@
             app:layout_constraintBottom_toTopOf="@+id/hubToViewButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="334dp"
+            android:layout_height="524dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginEnd="66dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/tesla_png_picture_2542355059__1_"
+            app:layout_constraintBottom_toTopOf="@+id/hubToScanButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

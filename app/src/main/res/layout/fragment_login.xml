@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/beige">
 
         <Button
             android:id="@+id/loginButton"
@@ -24,13 +25,16 @@
 
         <EditText
             android:id="@+id/passwordField"
-            android:layout_width="366dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="25dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="@string/prompt_password"
             android:inputType="textPassword"
+            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,17 +42,31 @@
 
         <EditText
             android:id="@+id/usernameField"
-            android:layout_width="366dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="328dp"
+            android:layout_marginEnd="25dp"
             android:autofillHints=""
             android:ems="10"
             android:hint='@string/prompt_username'
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textColorHint="#757575"
+            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintHorizontal_bias="0.482"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="246dp"
+            android:layout_height="199dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="50dp"
+            android:src="@drawable/hornet_clipart_greenville_5_2756229498"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

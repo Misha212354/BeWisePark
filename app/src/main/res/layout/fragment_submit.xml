@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/beige">
 
         <Button
             android:id="@+id/submitButton"
@@ -35,13 +36,16 @@
 
         <EditText
             android:id="@+id/violationField"
-            android:layout_width="366dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="25dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="@string/prompt_violation"
             android:inputType="text"
+            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,13 +53,16 @@
 
         <EditText
             android:id="@+id/carIdField"
-            android:layout_width="366dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="72dp"
+            android:layout_marginEnd="25dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="@string/prompt_carId"
             android:inputType="text"
+            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="parent"
