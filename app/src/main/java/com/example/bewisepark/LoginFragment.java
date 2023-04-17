@@ -1,15 +1,26 @@
 package com.example.bewisepark;
 
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.bewisepark.Model.AuthRequest;
+
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,6 +78,7 @@ public class LoginFragment extends Fragment {
         view.findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
                 EditText nameField = view.findViewById(R.id.usernameField);
                 String name = nameField.getText().toString();
@@ -79,15 +91,30 @@ public class LoginFragment extends Fragment {
 
                 if(name.isBlank()){
                     nameField.setError("Username is required");
-                    Toast.makeText(getActivity(),"Failed to Login!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Failed to Login! Please Enter Username",Toast.LENGTH_LONG).show();
                 }
                 else if(password.isBlank()) {
                     passwordField.setError("Password is required");
-                    Toast.makeText(getActivity(),"Failed to Login!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(),"Failed to Login! Please Enter Password.",Toast.LENGTH_LONG).show();
                 }
 
                 else {
-                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_hubFragment, bundle);
+                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~bkrupp/330/www/rest.php/orders", null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Toast.makeText(getActivity(),"Login Successful!",Toast.LENGTH_LONG).show();
+                            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_hubFragment, bundle);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getActivity(),"Login Failed! Please Check Username or Password.",Toast.LENGTH_LONG).show();
+                            Log.e("Volley Error", error.toString());
+                        }
+                    });
+                    AuthRequest.username = name; // Whatever value from the form (use bkrupp for now)
+                    AuthRequest.password = password; // Whatever value from the form (use s3cr3t for now)
+                    serviceClient.addRequest(authRequest);
                 }
 
             }
