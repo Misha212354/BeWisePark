@@ -6,7 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-
+// Taken from example done in class
 public class ServiceClient {
     private static ServiceClient serviceClient;
     private static Context context;

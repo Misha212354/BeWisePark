@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
+// Taken from example in class
 public class AuthRequest extends JsonObjectRequest {
     public static String username = "";
     public static String password = "";

@@ -99,6 +99,7 @@ public class LoginFragment extends Fragment {
                 }
 
                 else {
+                    // TODO: Change url to use our user table
                     AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~bkrupp/330/www/rest.php/orders", null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
