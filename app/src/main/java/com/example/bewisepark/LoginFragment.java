@@ -20,6 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bewisepark.Model.AuthRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -87,7 +89,7 @@ public class LoginFragment extends Fragment {
                 String password = passwordField.getText().toString();
 
                 Bundle bundle = new Bundle();
-                bundle.putString("username", name);
+
 
                 if(name.isBlank()){
                     nameField.setError("Username is required");
@@ -100,11 +102,17 @@ public class LoginFragment extends Fragment {
 
                 else {
                     // TODO: Change url to use our user table
-                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~bkrupp/330/www/rest.php/orders", null, new Response.Listener<JSONObject>() {
+                    AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", null, new Response.Listener<JSONObject>() {
                         @Override
-                        public void onResponse(JSONObject response) {
+                        public void onResponse(JSONObject response1) {
                             Toast.makeText(getActivity(),"Login Successful!",Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_hubFragment, bundle);
+                            String violations = null;
+                            try {
+                                violations = response1.getString("data");
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            bundle.putString("violations", String.valueOf(violations));
                         }
                     }, new Response.ErrorListener() {
                         @Override
@@ -113,9 +121,35 @@ public class LoginFragment extends Fragment {
                             Log.e("Volley Error", error.toString());
                         }
                     });
+
+                    AuthRequest authRequest2 = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/", null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            String cars = null;
+                            try {
+                                cars = response.getString("data");
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            bundle.putString("cars", String.valueOf(cars));
+                            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_hubFragment, bundle);
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getActivity(),"Login Failed! Please Check Username or Password.",Toast.LENGTH_LONG).show();
+                            Log.e("Volley Error", error.toString());
+                        }
+                    });
+
+
                     AuthRequest.username = name; // Whatever value from the form (use bkrupp for now)
                     AuthRequest.password = password; // Whatever value from the form (use s3cr3t for now)
                     serviceClient.addRequest(authRequest);
+                    serviceClient.addRequest(authRequest2);
+
+                    System.out.println("");
                 }
 
             }

@@ -9,6 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HubFragment#newInstance} factory method to
@@ -59,6 +64,17 @@ public class HubFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //TODO: combine cars and violation in one class so it can be used in the recycler view, we will discuss it later in class.
+        Bundle bundle = getArguments();
+        String cars = bundle.getString("cars");
+        String violations = bundle.getString("violations");
+
+        Gson gson= new Gson();
+        Car[] carArray = gson.fromJson(cars, Car[].class);
+        List<Car> carList = Arrays.asList(carArray);
+
+
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hub, container, false);

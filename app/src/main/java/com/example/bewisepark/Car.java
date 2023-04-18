@@ -2,7 +2,7 @@ package com.example.bewisepark;
 
 // this class is for our Car object and its attributes (i.e. Violations and ID). Can add more if needed
 public class Car {
-    private String id;
+    private String carId;
     private String violation;
     private String make;
     private String model;
@@ -11,8 +11,8 @@ public class Car {
     private boolean expanded;
     private boolean expendedEdit;
 
-    public Car(String id, String violation, String make, String model, String color, String plate_number) {
-        this.id = id;
+    public Car(String carId, String violation, String make, String model, String color, String plate_number) {
+        this.carId = carId;
         this.violation = violation;
         this.make = make;
         this.model = model;
@@ -37,7 +37,7 @@ public class Car {
     public void setExpendedEdit(boolean expendedEdit) { this.expendedEdit = expendedEdit; }
 
     public String getId(){
-        return id;
+        return carId;
     }
 
     public String getViolation() {
@@ -83,7 +83,7 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "id='" + id + '\'' +
+                "id='" + carId + '\'' +
                 ", violation='" + violation + '\'' +
                 '}';
     }
