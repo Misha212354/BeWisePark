@@ -14,6 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.bewisepark.Model.AuthRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -74,25 +85,45 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view, container, false);
-
-        recyclerView = view.findViewById(R.id.recyclerView);  // creates the recyclerView
-        List<Car> carIdList;  // defines the list to be shown, could be moved up with other private methods. Test later
-
-        carIdList = new ArrayList<>();
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);  // these two ItemDecoration lines just create borders for each item
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
+        List<Car> carIdList = new ArrayList<>();  // defines the list to be shown, could be moved up with other private methods. Test later
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(carIdList);  // these two lines initiate the adapter which is going to display the info we just added
+        AuthRequest authRequest = new AuthRequest(Request.Method.GET,
+                "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/",
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Type carList = new TypeToken<ArrayList<Car>>() {}.getType();
+                        Gson gson = new Gson();
+                        try {
+                            List<Car>updatedCars = gson.fromJson(response.get("data").toString(), carList);
+                            carIdList.clear();
+                            carIdList.addAll(updatedCars);
+                            recyclerAdapter.notifyDataSetChanged();
+                            // TODO: Send orders to adapter and let it know that things changed
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        int x = 1;
+                    }
+                });
 
         // hardcoded items for our list of car Ids and violations for testing. Should be changed so that we are just using ids and violations from web. Can also add more attributes.
 
-        //we need 16 cars
-        List<String> idList = Arrays.asList("1D4AEU", "F3F43F", "F3FGT5", "G4G544", "1D4AEU","F3F43F","F3FGT5","G4G544", "G4G544", "G4G544");
-        Random random = new Random();
+        AuthRequest.username = "mt45";
+        AuthRequest.password = "s3cret";
+        serviceClient.addRequest(authRequest);
 
-        for(int i = 0; i < idList.size(); i++){
-            carIdList.add(new Car(idList.get(i), "Violation " + (random.nextInt(800)+100), "Honda", "Accord", "Black", "JFB8798"));
-        }
+        recyclerView = view.findViewById(R.id.recyclerView);  // creates the recyclerView
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);  // these two ItemDecoration lines just create borders for each item
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
-        recyclerAdapter = new RecyclerAdapter(carIdList);  // these two lines initiate the adapter which is going to display the info we just added
         recyclerView.setAdapter(recyclerAdapter);
 
         recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
