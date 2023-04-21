@@ -10,16 +10,25 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
+import com.example.bewisepark.Model.AuthRequest;
 import com.google.zxing.Result;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.Array;
 
@@ -99,11 +108,37 @@ public class ScanFragment extends Fragment {
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull Result result) {
+                ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
+                        Bundle bundle = new Bundle();
 
+                        String carId = result.getText();
+
+                        AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/"+carId, null, new Response.Listener<JSONObject>(){
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    if(response.getInt("status") == 0){
+                                        Toast.makeText(getActivity(), "Car Found", Toast.LENGTH_LONG).show();
+                                    }
+                                    else{
+                                        Toast.makeText(getActivity(), "Car Not Found", Toast.LENGTH_LONG).show();
+                                    }
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getActivity(),"Login Failed! Please Check Username or Password.",Toast.LENGTH_LONG).show();
+                                Log.e("Volley Error", error.toString());
+                            }
+                        });
+                        serviceClient.addRequest(authRequest);
                     }
                 });
             }

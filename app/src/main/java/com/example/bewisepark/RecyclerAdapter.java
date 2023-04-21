@@ -76,7 +76,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         TextView titleTextView, rowCountTextView, makeTextView, modelTextView, plateTextView;
         EditText rowCountEditText;
         TextView makeEditText, modelEditText, plateEditText;
-
         Button editButton, deleteButton, submitButtonRecycler;
 
         public ViewHolder(@NonNull View itemView) {
@@ -93,10 +92,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             plateTextView = itemView.findViewById(R.id.plateTextView);
 
             rowCountEditText = itemView.findViewById(R.id.rowCountEditText);
+            rowCountEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
             makeEditText = itemView.findViewById(R.id.makeEditText);
             modelEditText = itemView.findViewById(R.id.modelEditText);
             plateEditText = itemView.findViewById(R.id.plateEditText);
-            plateEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
 
 

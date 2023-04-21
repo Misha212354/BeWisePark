@@ -8,10 +8,28 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.bewisepark.Model.AuthRequest;
 import com.example.bewisepark.Model.types.Car;
+import com.example.bewisepark.Model.types.User;
+import com.example.bewisepark.Model.types.Violation;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
+
+
+import static java.lang.Integer.parseInt;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +92,30 @@ public class SubmitFragment extends Fragment {  // WIP, we should be able to upd
         view.findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Gson gson = new Gson();
+                EditText carIdEdit = view.findViewById(R.id.carIdField);
+                EditText violationEdit = view.findViewById(R.id.violationField);
+                Violation violation = new Violation(User.userId, parseInt(carIdEdit.getText().toString()), violationEdit.getText().toString());
+                String violationJ = gson.toJson(violation);
+                JSONObject jsonViolation = null;
+                try {
+                    jsonViolation = new JSONObject(violationJ);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+                AuthRequest authRequest = new AuthRequest(Request.Method.POST, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", jsonViolation, new Response.Listener<JSONObject>(){
+                            public void onResponse(JSONObject response) {
+                                int x = 1;
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                int x = 1;
+                            }
+                        });
+
                 // TODO: Update the carIdList when submitting.
                 Navigation.findNavController(view).navigate(R.id.action_submitFragment_to_viewFragment);
             }

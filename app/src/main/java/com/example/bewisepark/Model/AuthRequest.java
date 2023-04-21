@@ -31,4 +31,3 @@ public class AuthRequest extends JsonObjectRequest {
         return headers;
     }
 }
-
