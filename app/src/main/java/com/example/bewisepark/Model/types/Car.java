@@ -1,4 +1,4 @@
-package com.example.bewisepark;
+package com.example.bewisepark.Model.types;
 
 // this class is for our Car object and its attributes (i.e. Violations and ID). Can add more if needed
 public class Car {

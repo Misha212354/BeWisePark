@@ -2,11 +2,9 @@ package com.example.bewisepark;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -18,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.bewisepark.Model.AuthRequest;
+import com.example.bewisepark.Model.types.Car;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -26,9 +25,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.

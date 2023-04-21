@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bewisepark.Model.AuthRequest;
+import com.example.bewisepark.Model.types.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -105,7 +106,23 @@ public class LoginFragment extends Fragment {
                     AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/users/", null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response1) {
+                            try {
+                                User.userId = response1.getInt("userId");
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            try {
+                                User.email = response1.getString("email");
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            try {
+                                User.username = response1.getString("username");
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
                             Toast.makeText(getActivity(),"Login Successful!",Toast.LENGTH_LONG).show();
+                            System.out.println(User.userId);
                             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_hubFragment);
                         }
                     }, new Response.ErrorListener() {
