@@ -59,10 +59,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.modelTextView.setText(car.getModel());
         holder.plateTextView.setText(car.getPlate_number());
 
-        holder.rowCountEditText.setText(car.getViolation(), TextView.BufferType.EDITABLE);
-        holder.makeEditText.setText(car.getMake(), TextView.BufferType.EDITABLE);
-        holder.modelEditText.setText(car.getModel(), TextView.BufferType.EDITABLE);
-        holder.plateEditText.setText(car.getPlate_number(), TextView.BufferType.EDITABLE);
+        holder.rowCountEditText.setText(car.getViolation());
+        holder.makeEditText.setText(car.getMake());
+        holder.modelEditText.setText(car.getModel());
+        holder.plateEditText.setText(car.getPlate_number());
 
         boolean isExpanded = carIdList.get(position).isExpanded();  // isExpanded checks if we expanded a row
         boolean isExpendedEdit =  carIdList.get(position).isExpendedEdit();
@@ -77,7 +77,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         ConstraintLayout expandableLayoutEdit, expandableLayout;
         TextView titleTextView, rowCountTextView, makeTextView, modelTextView, plateTextView;
-        EditText rowCountEditText, makeEditText, modelEditText, plateEditText;
+        EditText rowCountEditText;
+        TextView makeEditText, modelEditText, plateEditText;
 
         Button editButton, deleteButton, submitButtonRecycler;
 
@@ -143,10 +144,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     car.setExpendedEdit(!car.isExpendedEdit());
 
                     car.setViolation(rowCountEditText.getText().toString());
-                    car.setMake(makeEditText.getText().toString());
-                    car.setModel(modelEditText.getText().toString());
-                    car.setPlate_number(plateEditText.getText().toString());
-
                     notifyItemChanged(getAdapterPosition());
                 }
             });

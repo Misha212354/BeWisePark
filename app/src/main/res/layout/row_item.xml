@@ -144,6 +144,7 @@
                     android:text="plate number"
                     app:layout_constraintStart_toEndOf="@+id/textView4"
                     app:layout_constraintTop_toBottomOf="@+id/modelTextView" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -221,44 +222,32 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-                <EditText
-                    android:id="@+id/makeEditText"
-                    android:layout_width="126dp"
-                    android:layout_height="19dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@null"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toEndOf="@+id/textView13"
-                    app:layout_constraintTop_toBottomOf="@+id/rowCountEditText" />
-
-                <EditText
+                <TextView
                     android:id="@+id/modelEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@null"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textSize="14sp"
+                    android:layout_marginTop="7dp"
+                    android:text="TextView"
                     app:layout_constraintStart_toEndOf="@+id/textView14"
                     app:layout_constraintTop_toBottomOf="@+id/makeEditText" />
 
-                <EditText
+                <TextView
                     android:id="@+id/plateEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@null"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textSize="14sp"
+                    android:text="TextView"
                     app:layout_constraintStart_toEndOf="@+id/textView15"
                     app:layout_constraintTop_toBottomOf="@+id/modelEditText" />
+
+                <TextView
+                    android:id="@+id/makeEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toEndOf="@+id/textView13"
+                    app:layout_constraintTop_toBottomOf="@+id/rowCountEditText" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

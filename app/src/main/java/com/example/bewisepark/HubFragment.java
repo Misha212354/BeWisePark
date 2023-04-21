@@ -65,14 +65,14 @@ public class HubFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //TODO: combine cars and violation in one class so it can be used in the recycler view, we will discuss it later in class.
-        Bundle bundle = getArguments();
-        String cars = bundle.getString("cars");
-        String violations = bundle.getString("violations");
-
-        Gson gson= new Gson();
-        Car[] carArray = gson.fromJson(cars, Car[].class);
-        List<Car> carList = Arrays.asList(carArray);
+//        //TODO: combine cars and violation in one class so it can be used in the recycler view, we will discuss it later in class.
+//        Bundle bundle = getArguments();
+//        String cars = bundle.getString("cars");
+//        String violations = bundle.getString("violations");
+//
+//        Gson gson= new Gson();
+//        Car[] carArray = gson.fromJson(cars, Car[].class);
+//        List<Car> carList = Arrays.asList(carArray);
 
 
 

@@ -86,12 +86,10 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view, container, false);
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
+
         List<Car> carIdList = new ArrayList<>();  // defines the list to be shown, could be moved up with other private methods. Test later
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(carIdList);  // these two lines initiate the adapter which is going to display the info we just added
-        AuthRequest authRequest = new AuthRequest(Request.Method.GET,
-                "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/",
-                null,
-                new Response.Listener<JSONObject>() {
+        AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/", null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Type carList = new TypeToken<ArrayList<Car>>() {}.getType();
@@ -115,9 +113,6 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
                 });
 
         // hardcoded items for our list of car Ids and violations for testing. Should be changed so that we are just using ids and violations from web. Can also add more attributes.
-
-        AuthRequest.username = "mt45";
-        AuthRequest.password = "s3cret";
         serviceClient.addRequest(authRequest);
 
         recyclerView = view.findViewById(R.id.recyclerView);  // creates the recyclerView
