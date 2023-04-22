@@ -9,20 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.bewisepark.Model.AuthRequest;
-import com.example.bewisepark.Model.types.Car;
+import com.example.bewisepark.Model.types.Item;
 import com.example.bewisepark.Model.types.User;
 import com.example.bewisepark.Model.types.Violation;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,10 +34,10 @@ import org.json.JSONObject;
  * create an instance of this fragment.
  */
 public class SubmitFragment extends Fragment {  // WIP, we should be able to update the carIdList
-    List<Car> carIdList;
+    List<Item> itemList;
 
-    public SubmitFragment(List<Car> carIdList) {
-        this.carIdList = carIdList;
+    public SubmitFragment(List<Item> itemList) {
+        this.itemList = itemList;
     }
 
     // TODO: Rename parameter arguments, choose names that match
@@ -88,10 +85,13 @@ public class SubmitFragment extends Fragment {  // WIP, we should be able to upd
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_submit, container, false);
+        ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
+
 
         view.findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final boolean[] updated = {false};
                 Gson gson = new Gson();
                 EditText carIdEdit = view.findViewById(R.id.carIdField);
                 EditText violationEdit = view.findViewById(R.id.violationField);
@@ -106,7 +106,7 @@ public class SubmitFragment extends Fragment {  // WIP, we should be able to upd
 
                 AuthRequest authRequest = new AuthRequest(Request.Method.POST, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", jsonViolation, new Response.Listener<JSONObject>(){
                             public void onResponse(JSONObject response) {
-                                int x = 1;
+                                Navigation.findNavController(view).navigate(R.id.action_submitFragment_to_viewFragment);
                             }
                         },
                         new Response.ErrorListener() {
@@ -116,8 +116,8 @@ public class SubmitFragment extends Fragment {  // WIP, we should be able to upd
                             }
                         });
 
-                // TODO: Update the carIdList when submitting.
-                Navigation.findNavController(view).navigate(R.id.action_submitFragment_to_viewFragment);
+                serviceClient.addRequest(authRequest);
+
             }
         });
 

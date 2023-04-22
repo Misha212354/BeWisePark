@@ -1,51 +1,15 @@
 package com.example.bewisepark.Model.types;
 
-// this class is for our Car object and its attributes (i.e. Violations and ID). Can add more if needed
 public class Car {
-    private String carId;
-    private String violation;
-    private String make;
-    private String model;
-    private String color;
-    private String plate_number;
-    private boolean expanded;
-    private boolean expendedEdit;
+    private String make, model, plate_number, color;
+    private int carId;
 
-    public Car(String carId, String violation, String make, String model, String color, String plate_number) {
-        this.carId = carId;
-        this.violation = violation;
+    public Car(String make, String model, String plate_number, String color, int carId) {
         this.make = make;
         this.model = model;
-        this.color = color;
         this.plate_number = plate_number;
-        this.expanded = false;
-        this.expendedEdit = false;
-    }
-
-    public boolean isExpanded() {
-        return expanded;
-    }
-
-    public boolean isExpendedEdit() {
-        return expendedEdit;
-    }
-
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
-    }
-
-    public void setExpendedEdit(boolean expendedEdit) { this.expendedEdit = expendedEdit; }
-
-    public String getId(){
-        return carId;
-    }
-
-    public String getViolation() {
-        return violation;
-    }
-
-    public void setViolation(String violation) {
-        this.violation = violation;
+        this.color = color;
+        this.carId = carId;
     }
 
     public String getMake() {
@@ -64,14 +28,6 @@ public class Car {
         this.model = model;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public String getPlate_number() {
         return plate_number;
     }
@@ -80,11 +36,19 @@ public class Car {
         this.plate_number = plate_number;
     }
 
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id='" + carId + '\'' +
-                ", violation='" + violation + '\'' +
-                '}';
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getCarId() {
+        return carId;
+    }
+
+    public void setCarId(int carId) {
+        this.carId = carId;
     }
 }

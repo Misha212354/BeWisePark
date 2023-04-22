@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bewisepark.Model.types.Car;
+import com.example.bewisepark.Model.types.Item;
 
 import java.util.List;
 
@@ -22,10 +22,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     // this class is responsible for taking the data we give in our view and "adapting" our recyclerView to include it
 
     private static final String TAG = "RecyclerAdapter";
-    List<Car> carIdList;
+    List<Item> itemList;
 
-    public RecyclerAdapter(List<Car> carIdList) {
-        this.carIdList = carIdList;
+    public RecyclerAdapter(List<Item> itemList) {
+        this.itemList = itemList;
     }
 
     // creates rows and maps items in list to those rows
@@ -41,28 +41,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     // this method represents the number of rows in recyclerView. For example, if cardIdList.size() == 20, there will be 20 rows
     @Override
     public int getItemCount() {
-        return carIdList.size();
+        return itemList.size();
     }
 
     // this method takes in the view and puts in the data into that view. Used to map data to each defined textView in layout
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Car car = carIdList.get(position);
+        Item item = itemList.get(position);
 
-        holder.titleTextView.setText(car.getId());
+        holder.titleTextView.setText(Integer.toString(item.getViolationId()));
 
-        holder.rowCountTextView.setText(car.getViolation());
-        holder.makeTextView.setText(car.getMake());
-        holder.modelTextView.setText(car.getModel());
-        holder.plateTextView.setText(car.getPlate_number());
+        holder.rowCountTextView.setText(item.getViolation_description());
+        holder.makeTextView.setText(item.getMake());
+        holder.modelTextView.setText(item.getModel());
+        holder.plateTextView.setText(item.getPlate_number());
 
-        holder.rowCountEditText.setText(car.getViolation());
-        holder.makeEditText.setText(car.getMake());
-        holder.modelEditText.setText(car.getModel());
-        holder.plateEditText.setText(car.getPlate_number());
+        holder.rowCountEditText.setText(item.getViolation_description());
+        holder.makeEditText.setText(item.getMake());
+        holder.modelEditText.setText(item.getModel());
+        holder.plateEditText.setText(item.getPlate_number());
 
-        boolean isExpanded = carIdList.get(position).isExpanded();  // isExpanded checks if we expanded a row
-        boolean isExpendedEdit =  carIdList.get(position).isExpendedEdit();
+        boolean isExpanded = itemList.get(position).isExpanded();  // isExpanded checks if we expanded a row
+        boolean isExpendedEdit =  itemList.get(position).isExpendedEdit();
 
         holder.expandableLayoutEdit.setVisibility(isExpendedEdit ? View.VISIBLE : View.GONE); //FIX THIS PART
         holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);  // if false expanded row will be invisible and if true then it'll be visible
@@ -104,9 +104,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                 @Override
                 public void onClick(View view) {
-                    Car car = carIdList.get(getAdapterPosition());
-                    if(car.isExpendedEdit() != true){
-                        car.setExpanded(!car.isExpanded());
+                    Item item = itemList.get(getAdapterPosition());
+                    if(item.isExpendedEdit() != true){
+                        item.setExpanded(!item.isExpanded());
                         notifyItemChanged(getAdapterPosition());
                     }else{
                         Toast.makeText(view.getContext(), "Must Submit",Toast.LENGTH_SHORT).show();
@@ -122,9 +122,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Car car = carIdList.get(getAdapterPosition());
-                    car.setExpanded(!car.isExpanded());
-                    car.setExpendedEdit(!car.isExpendedEdit());
+                    Item item = itemList.get(getAdapterPosition());
+                    item.setExpanded(!item.isExpanded());
+                    item.setExpendedEdit(!item.isExpendedEdit());
                     notifyItemChanged(getAdapterPosition());
 
 
@@ -136,10 +136,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             submitButtonRecycler.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Car car = carIdList.get(getAdapterPosition());
-                    car.setExpendedEdit(!car.isExpendedEdit());
+                    Item item = itemList.get(getAdapterPosition());
+                    item.setExpendedEdit(!item.isExpendedEdit());
 
-                    car.setViolation(rowCountEditText.getText().toString());
+                    item.setViolation_description(rowCountEditText.getText().toString());
                     notifyItemChanged(getAdapterPosition());
                 }
             });
@@ -148,7 +148,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             deleteButton.setOnClickListener(new View.OnClickListener() {  // deletes expanded row
                 @Override
                 public void onClick(View view3) {
-                    carIdList.remove(getAdapterPosition());
+                    itemList.remove(getAdapterPosition());
                     notifyItemRemoved(getAdapterPosition());
                 }
             });
@@ -173,7 +173,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), (CharSequence) carIdList.get(getAdapterPosition()),Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), (CharSequence) itemList.get(getAdapterPosition()),Toast.LENGTH_SHORT).show();
         }
     }
 }
