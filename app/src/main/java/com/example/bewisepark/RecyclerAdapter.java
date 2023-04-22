@@ -1,6 +1,8 @@
 package com.example.bewisepark;
 
 
+import static java.lang.Integer.parseInt;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -20,7 +23,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.bewisepark.Model.AuthRequest;
 import com.example.bewisepark.Model.types.Item;
+import com.example.bewisepark.Model.types.User;
+import com.example.bewisepark.Model.types.Violation;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -140,17 +147,47 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
 
+
                 }
             });
 
             submitButtonRecycler.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Item item = itemList.get(getAdapterPosition());
+                    int position = getAdapterPosition();
+                    Item item = itemList.get(position);
                     item.setExpendedEdit(!item.isExpendedEdit());
 
-                    item.setViolation_description(rowCountEditText.getText().toString());
-                    notifyItemChanged(getAdapterPosition());
+                    Gson gson = new Gson();
+
+                    Violation violation = new Violation(User.userId, item.getCarId(), item.getViolationId(), rowCountEditText.getText().toString());
+                    String violationJ = gson.toJson(violation);
+                    JSONObject jsonViolation = null;
+                    try {
+                        jsonViolation = new JSONObject(violationJ);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    AuthRequest authRequest = new AuthRequest(Request.Method.PUT, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", jsonViolation, new Response.Listener<JSONObject>(){
+                        public void onResponse(JSONObject response) {
+                            //TODO:check if it was not changed. It should return json anyway which it will consider as a proper response.
+                            item.setViolation_description(rowCountEditText.getText().toString());
+                            notifyItemChanged(getAdapterPosition());
+                        }
+                    },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    int x = 1;
+                                }
+                            });
+
+                    serviceClient.addRequest(authRequest);
+
+
+
+
                 }
             });
 
@@ -177,6 +214,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     AuthRequest authRequest = new AuthRequest(Request.Method.DELETE, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/" + Integer.toString(item.getViolationId()), null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            //TODO:check if it was not deleted. It should return json anyway which it will consider as a proper response.
                             itemList.remove(position);
                             notifyItemRemoved(position);
                         }

@@ -1,17 +1,22 @@
 package com.example.bewisepark.Model.types;
 
 public class Item {
-    private int violationId;
+    private int violationId, carId;
     private String violation_description, make, model, plate_number;
     private boolean expanded;
     private boolean expendedEdit;
 
-    public Item(int violationId, String violation_description, String make, String model, String plate_number) {
+    public Item(int violationId, int carId, String violation_description, String make, String model, String plate_number) {
         this.violationId = violationId;
         this.violation_description = violation_description;
         this.make = make;
         this.model = model;
         this.plate_number = plate_number;
+        this.carId = carId;
+    }
+
+    public int getCarId() {
+        return carId;
     }
 
     public int getViolationId() {

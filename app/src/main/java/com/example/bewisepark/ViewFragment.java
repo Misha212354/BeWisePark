@@ -129,7 +129,7 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
                             int x = car.getCarId();
                             int y = violation.getCarId();
                             if(x == y){
-                                Item item = new Item(violation.getViolationId(), violation.getViolation_description(), car.getMake(), car.getModel(), car.getPlate_number());
+                                Item item = new Item(violation.getViolationId(), car.getCarId(), violation.getViolation_description(), car.getMake(), car.getModel(), car.getPlate_number());
                                 itemList.add(item);
 
                             }

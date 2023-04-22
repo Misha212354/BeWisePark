@@ -91,7 +91,6 @@ public class SubmitFragment extends Fragment {  // WIP, we should be able to upd
         view.findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final boolean[] updated = {false};
                 Gson gson = new Gson();
                 EditText carIdEdit = view.findViewById(R.id.carIdField);
                 EditText violationEdit = view.findViewById(R.id.violationField);
