@@ -160,6 +160,17 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <Button
+                    android:id="@+id/cancelButtonRecycler2"
+                    android:layout_width="94dp"
+                    android:layout_height="49dp"
+                    android:layout_marginTop="68dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/blackish"
+                    android:text="cancel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
                     android:id="@+id/submitButtonRecycler"
                     android:layout_width="94dp"
                     android:layout_height="49dp"

@@ -91,7 +91,7 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
         List<Violation> violationList = new ArrayList<>();
         List<Car> carList = new ArrayList<>();
         List<Item> itemList = new ArrayList<>();
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(itemList);
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(itemList, getActivity());
 
         AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", null, new Response.Listener<JSONObject>() {
                     @Override
@@ -102,7 +102,6 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
                             List<Violation> updatedViolations = gson.fromJson(response.get("data").toString(), violations);
                             violationList.clear();
                             violationList.addAll(updatedViolations);
-                            System.out.println();
 
                         } catch (JSONException e) {
                             throw new RuntimeException(e);

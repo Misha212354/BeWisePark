@@ -12,9 +12,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.bewisepark.Model.AuthRequest;
 import com.example.bewisepark.Model.types.Item;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -23,9 +30,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     private static final String TAG = "RecyclerAdapter";
     List<Item> itemList;
+    private ServiceClient serviceClient;
 
-    public RecyclerAdapter(List<Item> itemList) {
+    public RecyclerAdapter(List<Item> itemList, FragmentActivity fragmentActivity) {
         this.itemList = itemList;
+        this.serviceClient = ServiceClient.sharedServiceClient(fragmentActivity.getApplicationContext());
     }
 
     // creates rows and maps items in list to those rows
@@ -76,7 +85,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         TextView titleTextView, rowCountTextView, makeTextView, modelTextView, plateTextView;
         EditText rowCountEditText;
         TextView makeEditText, modelEditText, plateEditText;
-        Button editButton, deleteButton, submitButtonRecycler;
+        Button editButton, deleteButton, submitButtonRecycler, cancelButtonRecycler;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -118,6 +127,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             editButton = itemView.findViewById(R.id.editButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             submitButtonRecycler = itemView.findViewById(R.id.submitButtonRecycler);
+            cancelButtonRecycler = itemView.findViewById(R.id.cancelButtonRecycler2);
 
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -144,30 +154,42 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
             });
 
+            cancelButtonRecycler.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Item item = itemList.get(getAdapterPosition());
+                    item.setExpanded(!item.isExpanded());
+                    item.setExpendedEdit(!item.isExpendedEdit());
+                    notifyItemChanged(getAdapterPosition());
+                }
+            });
+
 
             deleteButton.setOnClickListener(new View.OnClickListener() {  // deletes expanded row
                 @Override
                 public void onClick(View view3) {
-                    itemList.remove(getAdapterPosition());
-                    notifyItemRemoved(getAdapterPosition());
+//                    itemList.remove(getAdapterPosition());
+//                    notifyItemRemoved(getAdapterPosition());
+                    int position = getAdapterPosition();
+                    Item item = itemList.get(position);
+
+
+                    AuthRequest authRequest = new AuthRequest(Request.Method.DELETE, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/" + Integer.toString(item.getViolationId()), null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            itemList.remove(position);
+                            notifyItemRemoved(position);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
+                    serviceClient.addRequest(authRequest);
+
                 }
             });
-
-//            editButton.setOnClickListener(new View.OnClickListener() {  // sends used to edit page, with selected ID present at top. Send through bundle.
-//                @Override
-//                public void onClick(View view2) {
-//                    Car car = carIdList.get(getAdapterPosition());
-//                    String carId = car.getId();
-//                    String violation = car.getViolation();
-//
-//
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("carId", carId);
-//                    bundle.putString("violation", violation);
-//
-//                    Navigation.findNavController(view2).navigate(R.id.action_viewFragment_to_editFragment, bundle);
-//                }
-//            });
 
         }
 
