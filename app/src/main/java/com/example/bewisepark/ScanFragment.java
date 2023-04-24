@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -97,6 +98,14 @@ public class ScanFragment extends Fragment {
         final Activity activity = getActivity();
         thiscontext = container.getContext();
         View view = inflater.inflate(R.layout.fragment_scan, container, false);
+        Button cancelButton = view.findViewById(R.id.cancelScan);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v3) {
+                Navigation.findNavController(view).navigate(R.id.action_scanFragment_to_viewFragment);
+            }
+        });
 
         if(ContextCompat.checkSelfPermission(thiscontext, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(activity, new String[] {Manifest.permission.CAMERA}, 123);
@@ -106,9 +115,9 @@ public class ScanFragment extends Fragment {
 
         return view;
 
-
-
     }
+
+
     private void startScanning(Activity activity, View view){
         CodeScannerView scannerView = view.findViewById(R.id.scannerView);
         mCodeScanner = new CodeScanner(activity, scannerView);

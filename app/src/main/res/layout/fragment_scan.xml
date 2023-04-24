@@ -14,6 +14,7 @@
         android:background="#444444">
 
         <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
@@ -23,10 +24,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.budiyev.android.codescanner.CodeScannerView
-                android:id="@+id/scannerView"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
+
+                <com.budiyev.android.codescanner.CodeScannerView
+                    android:id="@+id/scannerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </com.budiyev.android.codescanner.CodeScannerView>
+
+                <Button
+                    android:id="@+id/cancelScan"
+                    android:layout_width="150px"
+                    android:layout_height="150px"
+                    android:layout_marginBottom="100dp"
+                    android:backgroundTint="#AC2C2C"
+                    android:text="X"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="150px"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

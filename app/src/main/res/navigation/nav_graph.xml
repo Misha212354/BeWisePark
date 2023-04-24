@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_hubFragment_to_scanFragment"
             app:destination="@id/scanFragment" />
+        <action
+            android:id="@+id/action_hubFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/submitFragment"
@@ -52,6 +55,9 @@
         <action
             android:id="@+id/action_viewFragment_to_scanFragment"
             app:destination="@id/scanFragment" />
+        <action
+            android:id="@+id/action_viewFragment_to_hubFragment"
+            app:destination="@id/hubFragment" />
     </fragment>
     <fragment
         android:id="@+id/scanFragment"
@@ -61,10 +67,20 @@
         <action
             android:id="@+id/action_scanFragment_to_foundCarFragment"
             app:destination="@id/foundCarFragment" />
+        <action
+            android:id="@+id/action_scanFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
     </fragment>
     <fragment
         android:id="@+id/foundCarFragment"
         android:name="com.example.bewisepark.FoundCarFragment"
         android:label="fragment_found_car"
-        tools:layout="@layout/fragment_found_car" />
+        tools:layout="@layout/fragment_found_car" >
+        <action
+            android:id="@+id/action_foundCarFragment_to_submitFragment"
+            app:destination="@id/submitFragment" />
+        <action
+            android:id="@+id/action_foundCarFragment_to_hubFragment"
+            app:destination="@id/hubFragment" />
+    </fragment>
 </navigation>
