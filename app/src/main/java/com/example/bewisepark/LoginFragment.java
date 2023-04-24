@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,9 +80,14 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        view.findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
+        Button loginButton = view.findViewById(R.id.loginButton);
+        ProgressBar progressBar = view.findViewById(R.id.progressBarLogin);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginButton.setEnabled(false);
+                progressBar.setVisibility(View.VISIBLE);
+
                 ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
                 EditText nameField = view.findViewById(R.id.usernameField);
@@ -102,7 +109,7 @@ public class LoginFragment extends Fragment {
                 }
 
                 else {
-                    // TODO: Change url to use our user table
+
                     AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/users/", null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response1) {
@@ -122,13 +129,18 @@ public class LoginFragment extends Fragment {
                                 throw new RuntimeException(e);
                             }
                             Toast.makeText(getActivity(),"Login Successful!",Toast.LENGTH_LONG).show();
-                            System.out.println(User.userId);
+
+                            loginButton.setEnabled(true);
+                            progressBar.setVisibility(View.GONE);
+
                             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_hubFragment);
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Toast.makeText(getActivity(),"Login Failed! Please Check Username or Password.",Toast.LENGTH_LONG).show();
+                            loginButton.setEnabled(true);
+                            progressBar.setVisibility(View.GONE);
                             Log.e("Volley Error", error.toString());
                         }
                     });

@@ -11,6 +11,19 @@
         android:layout_height="match_parent"
         android:background="@color/beige">
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="335dp"
+            android:layout_height="491dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginEnd="66dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/tesla_png_picture_2542355059__1_"
+            app:layout_constraintBottom_toTopOf="@+id/hubToScanButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"
@@ -58,16 +71,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="246dp"
-            android:layout_height="199dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="50dp"
-            android:src="@drawable/hornet_clipart_greenville_5_2756229498"
+        <ProgressBar
+            android:id="@+id/progressBarLogin"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="114dp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/loginButton"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

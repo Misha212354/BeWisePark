@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -18,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.example.bewisepark.Model.AuthRequest;
 import com.example.bewisepark.Model.types.Car;
 import com.example.bewisepark.Model.types.Item;
+import com.example.bewisepark.Model.types.User;
 import com.example.bewisepark.Model.types.Violation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -87,69 +89,71 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view, container, false);
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(Item.itemList, getActivity());
 
-        List<Violation> violationList = new ArrayList<>();
-        List<Car> carList = new ArrayList<>();
-        List<Item> itemList = new ArrayList<>();
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(itemList, getActivity());
-
-        AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Type violations = new TypeToken<ArrayList<Violation>>() {}.getType();
-                        Gson gson = new Gson();
-                        try {
-                            List<Violation> updatedViolations = gson.fromJson(response.get("data").toString(), violations);
-                            violationList.clear();
-                            violationList.addAll(updatedViolations);
-
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        int x = 1;
-                    }
-                });
-
-        AuthRequest authRequest1 = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/", null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Type cars = new TypeToken<ArrayList<Car>>() {}.getType();
-                Gson gson = new Gson();
-                try {
-                    List<Car> updatedCars = gson.fromJson(response.get("data").toString(), cars);
-                    carList.clear();
-                    carList.addAll(updatedCars);
-                    for(Violation violation:violationList){
-                        for(Car car:carList){
-                            int x = car.getCarId();
-                            int y = violation.getCarId();
-                            if(x == y){
-                                Item item = new Item(violation.getViolationId(), car.getCarId(), violation.getViolation_description(), car.getMake(), car.getModel(), car.getPlate_number());
-                                itemList.add(item);
-
-                            }
-                        }
-                    }
-                    recyclerAdapter.notifyDataSetChanged();
-
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        int x = 1;
-                    }
-                });
-        serviceClient.addRequest(authRequest);
-        serviceClient.addRequest(authRequest1);
+//        List<Violation> violationList = new ArrayList<>();
+//        List<Car> carList = new ArrayList<>();
+//        List<Item> itemList = new ArrayList<>();
+//
+//
+//        AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", null, new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        Type violations = new TypeToken<ArrayList<Violation>>() {}.getType();
+//                        Gson gson = new Gson();
+//                        try {
+//                            List<Violation> updatedViolations = gson.fromJson(response.get("data").toString(), violations);
+//                            violationList.clear();
+//                            violationList.addAll(updatedViolations);
+//
+//                        } catch (JSONException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        int x = 1;
+//                    }
+//                });
+//
+//        AuthRequest authRequest1 = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/", null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                Type cars = new TypeToken<ArrayList<Car>>() {}.getType();
+//                Gson gson = new Gson();
+//                try {
+//                    System.out.println(response.get("data"));
+//                    List<Car> updatedCars = gson.fromJson(response.get("data").toString(), cars);
+//                    carList.clear();
+//                    carList.addAll(updatedCars);
+//                    for(Violation violation:violationList){
+//                        for(Car car:carList){
+//                            int x = car.getCarId();
+//                            int y = violation.getCarId();
+//                            if(x == y){
+//                                Item item = new Item(violation.getViolationId(), car.getCarId(), violation.getViolation_description(), car.getMake(), car.getModel(), car.getPlate_number());
+//                                itemList.add(item);
+//
+//                            }
+//                        }
+//                    }
+//                    recyclerAdapter.notifyDataSetChanged();
+//
+//                } catch (JSONException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
+//        },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        int x = 1;
+//                    }
+//                });
+//        serviceClient.addRequest(authRequest);
+//        serviceClient.addRequest(authRequest1);
 
         recyclerView = view.findViewById(R.id.recyclerView);  // creates the recyclerView
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);  // these two ItemDecoration lines just create borders for each item
@@ -180,6 +184,13 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_viewFragment_to_submitFragment);  // button to submit fragment
+            }
+        });
+
+        view.findViewById(R.id.viewToScanButton2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v2) {
+                Navigation.findNavController(view).navigate(R.id.action_viewFragment_to_scanFragment);
             }
         });
 

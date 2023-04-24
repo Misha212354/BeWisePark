@@ -38,10 +38,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     private static final String TAG = "RecyclerAdapter";
     List<Item> itemList;
     private ServiceClient serviceClient;
+    private FragmentActivity fragmentActivity;
+
 
     public RecyclerAdapter(List<Item> itemList, FragmentActivity fragmentActivity) {
         this.itemList = itemList;
         this.serviceClient = ServiceClient.sharedServiceClient(fragmentActivity.getApplicationContext());
+        this.fragmentActivity = fragmentActivity;
     }
 
     // creates rows and maps items in list to those rows
@@ -65,7 +68,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item item = itemList.get(position);
 
-        holder.titleTextView.setText(Integer.toString(item.getViolationId()));
+        holder.titleTextView.setText(String.format("VIOLATION ID: %d", item.getViolationId()));
 
         holder.rowCountTextView.setText(item.getViolation_description());
         holder.makeTextView.setText(item.getMake());
@@ -171,8 +174,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                     AuthRequest authRequest = new AuthRequest(Request.Method.PUT, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", jsonViolation, new Response.Listener<JSONObject>(){
                         public void onResponse(JSONObject response) {
-                            //TODO:check if it was not changed. It should return json anyway which it will consider as a proper response.
-                            item.setViolation_description(rowCountEditText.getText().toString());
+                            try {
+                                if(response.getInt("status") == 0){
+                                    item.setViolation_description(rowCountEditText.getText().toString());
+                                    Toast.makeText(fragmentActivity.getApplication(), "The violation is updated", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(fragmentActivity.getApplication(), "The violation is not updated", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
                             notifyItemChanged(getAdapterPosition());
                         }
                     },

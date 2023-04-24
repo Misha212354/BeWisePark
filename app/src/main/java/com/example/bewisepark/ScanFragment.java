@@ -1,5 +1,7 @@
 package com.example.bewisepark;
 
+import static java.lang.Character.getType;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -25,12 +27,18 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.example.bewisepark.Model.AuthRequest;
+import com.example.bewisepark.Model.types.Car;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.zxing.Result;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -105,6 +113,7 @@ public class ScanFragment extends Fragment {
         CodeScannerView scannerView = view.findViewById(R.id.scannerView);
         mCodeScanner = new CodeScanner(activity, scannerView);
         mCodeScanner.startPreview();
+        Gson gson = new Gson();
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull Result result) {
@@ -117,12 +126,26 @@ public class ScanFragment extends Fragment {
 
                         String carId = result.getText();
 
+
                         AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/"+carId, null, new Response.Listener<JSONObject>(){
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
+
                                     if(response.getInt("status") == 0){
+
                                         Toast.makeText(getActivity(), "Car Found", Toast.LENGTH_LONG).show();
+                                        Type carType = new TypeToken<ArrayList<Car>>(){}.getType();
+
+                                        List<Car> carList = gson.fromJson(response.get("data").toString(), carType);
+                                        Car car = carList.get(0);
+
+                                        bundle.putString("make", car.getMake());
+                                        bundle.putString("model", car.getModel());
+                                        bundle.putString("color", car.getColor());
+                                        bundle.putString("plate", car.getPlate_number());
+
+                                        Navigation.findNavController(view).navigate(R.id.action_scanFragment_to_foundCarFragment, bundle);
                                     }
                                     else{
                                         Toast.makeText(getActivity(), "Car Not Found", Toast.LENGTH_LONG).show();

@@ -13,15 +13,15 @@
         <action
             android:id="@+id/action_loginFragment_to_hubFragment"
             app:destination="@id/hubFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
     </fragment>
     <fragment
         android:id="@+id/hubFragment"
         android:name="com.example.bewisepark.HubFragment"
         android:label="fragment_hub"
         tools:layout="@layout/fragment_hub" >
-        <action
-            android:id="@+id/action_hubFragment_to_newVehicleIdFragment"
-            app:destination="@id/newVehicleIdFragment" />
         <action
             android:id="@+id/action_hubFragment_to_submitFragment"
             app:destination="@id/submitFragment" />
@@ -31,18 +31,6 @@
         <action
             android:id="@+id/action_hubFragment_to_scanFragment"
             app:destination="@id/scanFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/newVehicleIdFragment"
-        android:name="com.example.bewisepark.NewVehicleIdFragment"
-        android:label="fragment_new_vehicle_id"
-        tools:layout="@layout/fragment_new_vehicle_id" >
-        <action
-            android:id="@+id/action_newVehicleIdFragment_to_hubFragment"
-            app:destination="@id/hubFragment" />
-        <action
-            android:id="@+id/action_newVehicleIdFragment_to_submitFragment"
-            app:destination="@id/submitFragment" />
     </fragment>
     <fragment
         android:id="@+id/submitFragment"
@@ -59,24 +47,24 @@
         android:label="fragment_view"
         tools:layout="@layout/fragment_view" >
         <action
-            android:id="@+id/action_viewFragment_to_editFragment"
-            app:destination="@id/editFragment" />
-        <action
             android:id="@+id/action_viewFragment_to_submitFragment"
             app:destination="@id/submitFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/editFragment"
-        android:name="com.example.bewisepark.EditFragment"
-        android:label="fragment_edit"
-        tools:layout="@layout/fragment_edit" >
         <action
-            android:id="@+id/action_editFragment_to_viewFragment"
-            app:destination="@id/viewFragment" />
+            android:id="@+id/action_viewFragment_to_scanFragment"
+            app:destination="@id/scanFragment" />
     </fragment>
     <fragment
         android:id="@+id/scanFragment"
         android:name="com.example.bewisepark.ScanFragment"
         android:label="fragment_scan"
-        tools:layout="@layout/fragment_scan" />
+        tools:layout="@layout/fragment_scan" >
+        <action
+            android:id="@+id/action_scanFragment_to_foundCarFragment"
+            app:destination="@id/foundCarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/foundCarFragment"
+        android:name="com.example.bewisepark.FoundCarFragment"
+        android:label="fragment_found_car"
+        tools:layout="@layout/fragment_found_car" />
 </navigation>

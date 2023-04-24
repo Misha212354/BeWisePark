@@ -1,6 +1,9 @@
 package com.example.bewisepark.Model.types;
 
+import java.util.List;
+
 public class Item {
+    public static List<Item> itemList;
     private int violationId, carId;
     private String violation_description, make, model, plate_number;
     private boolean expanded;
