@@ -109,29 +109,6 @@ public class HubFragment extends Fragment {
                 toView.setEnabled(false);
 
                 //TODO: find a better way to call these, this should be in the model layer.
-
-                AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Type violations = new TypeToken<ArrayList<Violation>>() {}.getType();
-                        Gson gson = new Gson();
-                        try {
-                            List<Violation> updatedViolations = gson.fromJson(response.get("data").toString(), violations);
-                            violationList.clear();
-                            violationList.addAll(updatedViolations);
-
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                int x = 1;
-                            }
-                        });
-
                 AuthRequest authRequest1 = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/", null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -168,13 +145,38 @@ public class HubFragment extends Fragment {
 
                     }
                 }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        int x = 1;
+                    }
+                });
+
+                AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Type violations = new TypeToken<ArrayList<Violation>>() {}.getType();
+                        Gson gson = new Gson();
+                        try {
+                            List<Violation> updatedViolations = gson.fromJson(response.get("data").toString(), violations);
+                            violationList.clear();
+                            violationList.addAll(updatedViolations);
+                            serviceClient.addRequest(authRequest1);
+
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                },
+                        new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 int x = 1;
                             }
                         });
+
+
                 serviceClient.addRequest(authRequest);
-                serviceClient.addRequest(authRequest1);
+
 
 
             }
