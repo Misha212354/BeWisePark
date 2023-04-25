@@ -187,6 +187,13 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
             }
         });
 
+        view.findViewById(R.id.backButtonView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_viewFragment_to_hubFragment);  // button to submit fragment
+            }
+        });
+
         view.findViewById(R.id.viewToScanButton2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v2) {

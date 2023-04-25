@@ -98,18 +98,22 @@ public class LoginFragment extends Fragment {
 
                 Bundle bundle = new Bundle();
 
+                if(name.isBlank() || password.isBlank()){
+                    loginButton.setEnabled(true);
+                    progressBar.setVisibility(View.GONE);
 
-                if(name.isBlank()){
-                    nameField.setError("Username is required");
-                    Toast.makeText(getActivity(),"Failed to Login! Please Enter Username",Toast.LENGTH_LONG).show();
+                    if(name.isBlank()){
+                        nameField.setError("Username is required");
+                        Toast.makeText(getActivity(),"Failed to Login! Please Enter Username",Toast.LENGTH_LONG).show();
+                    }
+                    else if(password.isBlank()) {
+                        passwordField.setError("Password is required");
+                        Toast.makeText(getActivity(),"Failed to Login! Please Enter Password.",Toast.LENGTH_LONG).show();
+                    }
                 }
-                else if(password.isBlank()) {
-                    passwordField.setError("Password is required");
-                    Toast.makeText(getActivity(),"Failed to Login! Please Enter Password.",Toast.LENGTH_LONG).show();
-                }
+
 
                 else {
-
                     AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/users/", null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response1) {
@@ -138,9 +142,9 @@ public class LoginFragment extends Fragment {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity(),"Login Failed! Please Check Username or Password.",Toast.LENGTH_LONG).show();
                             loginButton.setEnabled(true);
                             progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(),"Login Failed! Please Check Username or Password.",Toast.LENGTH_LONG).show();
                             Log.e("Volley Error", error.toString());
                         }
                     });

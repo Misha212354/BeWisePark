@@ -3,6 +3,7 @@ package com.example.bewisepark;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,6 +78,13 @@ public class FoundCarFragment extends Fragment {
         modelTV.setText(model);
         colorTV.setText(color);
         plateTV.setText(plate);
+
+        view.findViewById(R.id.buttonBackFound).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_foundCarFragment_to_hubFragment);
+            }
+        });
 
 
 

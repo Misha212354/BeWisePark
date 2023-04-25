@@ -2,6 +2,8 @@ package com.example.bewisepark;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,4 +18,8 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
 
     }
+
+
+
+
 }
