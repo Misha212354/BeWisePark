@@ -91,6 +91,9 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(Item.itemList, getActivity());
 
+        TextView titleViolations = view.findViewById(R.id.vlHeaderTextView);
+        titleViolations.setText(String.format("The %s's Violation List", User.username).toUpperCase());
+
 //        List<Violation> violationList = new ArrayList<>();
 //        List<Car> carList = new ArrayList<>();
 //        List<Item> itemList = new ArrayList<>();

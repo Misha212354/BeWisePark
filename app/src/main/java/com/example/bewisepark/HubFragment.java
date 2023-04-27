@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,7 +91,7 @@ public class HubFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_hub, container, false);
 
         TextView wlcm = view.findViewById(R.id.wlcmHubTextView);
-        wlcm.setText(String.format("WELCOME BACK, %s! \nENJOY YOUR DAY!", User.username));
+        wlcm.setText(String.format("WELCOME BACK, %s! \nENJOY YOUR DAY!", User.username).toUpperCase());
 //        view.findViewById(R.id.hubToSubmitButton).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -115,7 +116,7 @@ public class HubFragment extends Fragment {
             }
         });
 
-        Button toView = view.findViewById(R.id.hubToViewButton);
+        ImageButton toView = view.findViewById(R.id.hubToViewButton);
         toView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +126,7 @@ public class HubFragment extends Fragment {
                 ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
 
                 view.findViewById(R.id.progressBarHub).setVisibility(View.VISIBLE);
-                toView.setEnabled(false);
+                toView.setVisibility(View.GONE);
 
                 //TODO: find a better way to call these, this should be in the model layer.
                 AuthRequest authRequest1 = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/", null, new Response.Listener<JSONObject>() {

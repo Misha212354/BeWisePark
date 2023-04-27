@@ -131,11 +131,8 @@ public class ScanFragment extends Fragment {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
                         Bundle bundle = new Bundle();
-
                         String carId = result.getText();
-
 
                         AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/"+carId, null, new Response.Listener<JSONObject>(){
                             @Override

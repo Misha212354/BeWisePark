@@ -70,11 +70,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         holder.titleTextView.setText(String.format("VIOLATION ID: %d", item.getViolationId()));
 
+        holder.carIdTextView.setText(Integer.toString(item.getCarId()));
         holder.rowCountTextView.setText(item.getViolation_description());
         holder.makeTextView.setText(item.getMake());
         holder.modelTextView.setText(item.getModel());
         holder.plateTextView.setText(item.getPlate_number());
 
+        holder.carIdEditText.setText(Integer.toString(item.getCarId()));
         holder.rowCountEditText.setText(item.getViolation_description());
         holder.makeEditText.setText(item.getMake());
         holder.modelEditText.setText(item.getModel());
@@ -92,9 +94,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         private static final String TAG = "CarVH";
 
         ConstraintLayout expandableLayoutEdit, expandableLayout;
-        TextView titleTextView, rowCountTextView, makeTextView, modelTextView, plateTextView;
+        TextView titleTextView, rowCountTextView, makeTextView, modelTextView, plateTextView, carIdTextView;
         EditText rowCountEditText;
-        TextView makeEditText, modelEditText, plateEditText;
+        TextView makeEditText, modelEditText, plateEditText, carIdEditText;
         Button editButton, deleteButton, submitButtonRecycler, cancelButtonRecycler;
 
         public ViewHolder(@NonNull View itemView) {
@@ -104,12 +106,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             expandableLayout = itemView.findViewById(R.id.expandableLayout);
             expandableLayoutEdit = itemView.findViewById(R.id.expandableLayoutEdit);
 
+            carIdTextView = itemView.findViewById(R.id.carIdTextView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             rowCountTextView = itemView.findViewById(R.id.rowCountTextView);
             makeTextView = itemView.findViewById(R.id.makeTextView);
             modelTextView = itemView.findViewById(R.id.modelTextView);
             plateTextView = itemView.findViewById(R.id.plateTextView);
 
+            carIdEditText = itemView.findViewById(R.id.carIdEditText);
             rowCountEditText = itemView.findViewById(R.id.rowCountEditText);
             rowCountEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
             makeEditText = itemView.findViewById(R.id.makeEditText);
