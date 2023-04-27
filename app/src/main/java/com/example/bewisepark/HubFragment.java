@@ -91,10 +91,17 @@ public class HubFragment extends Fragment {
 
         TextView wlcm = view.findViewById(R.id.wlcmHubTextView);
         wlcm.setText(String.format("WELCOME BACK, %s! \nENJOY YOUR DAY!", User.username));
-        view.findViewById(R.id.hubToSubmitButton).setOnClickListener(new View.OnClickListener() {
+//        view.findViewById(R.id.hubToSubmitButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Navigation.findNavController(view).navigate(R.id.action_hubFragment_to_submitFragment);
+//            }
+//        });
+
+        view.findViewById(R.id.hubToScanButton).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_hubFragment_to_submitFragment);
+            public void onClick(View v1) {
+                Navigation.findNavController(view).navigate(R.id.action_hubFragment_to_scanFragment);
             }
         });
 

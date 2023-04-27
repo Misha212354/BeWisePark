@@ -86,6 +86,20 @@ public class FoundCarFragment extends Fragment {
             }
         });
 
+        view.findViewById(R.id.addViolationFromFound).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v1) {
+                Navigation.findNavController(view).navigate(R.id.action_foundCarFragment_to_submitFragment, bundle);
+            }
+        });
+
+        view.findViewById(R.id.backToScanButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v3) {
+                Navigation.findNavController(view).navigate(R.id.action_foundCarFragment_to_scanFragment);
+            }
+        });
+
 
 
         return view;

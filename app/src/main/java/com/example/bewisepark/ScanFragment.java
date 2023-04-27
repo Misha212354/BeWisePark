@@ -1,5 +1,6 @@
 package com.example.bewisepark;
 
+import static java.lang.Character.codePointAt;
 import static java.lang.Character.getType;
 
 import android.Manifest;
@@ -103,7 +104,7 @@ public class ScanFragment extends Fragment {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v3) {
-                Navigation.findNavController(view).navigate(R.id.action_scanFragment_to_viewFragment);
+                Navigation.findNavController(view).navigateUp();
             }
         });
 
@@ -149,6 +150,7 @@ public class ScanFragment extends Fragment {
                                         List<Car> carList = gson.fromJson(response.get("data").toString(), carType);
                                         Car car = carList.get(0);
 
+                                        bundle.putString("carId", carId);
                                         bundle.putString("make", car.getMake());
                                         bundle.putString("model", car.getModel());
                                         bundle.putString("color", car.getColor());

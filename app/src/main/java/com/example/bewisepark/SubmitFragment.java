@@ -86,15 +86,23 @@ public class SubmitFragment extends Fragment {  // WIP, we should be able to upd
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_submit, container, false);
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
+        Bundle bundle = getArguments();
+        EditText carIdEdit = view.findViewById(R.id.carIdField);
+        EditText violationEdit = view.findViewById(R.id.violationField);
+
+        if(bundle != null){
+            String carId = bundle.getString("carId");
+            carIdEdit.setText(carId);
+        }
 
 
         view.findViewById(R.id.submitButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Gson gson = new Gson();
-                EditText carIdEdit = view.findViewById(R.id.carIdField);
-                EditText violationEdit = view.findViewById(R.id.violationField);
+
                 Violation violation = new Violation(User.userId, parseInt(carIdEdit.getText().toString()), violationEdit.getText().toString());
+
                 String violationJ = gson.toJson(violation);
                 JSONObject jsonViolation = null;
                 try {
@@ -105,7 +113,11 @@ public class SubmitFragment extends Fragment {  // WIP, we should be able to upd
 
                 AuthRequest authRequest = new AuthRequest(Request.Method.POST, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", jsonViolation, new Response.Listener<JSONObject>(){
                             public void onResponse(JSONObject response) {
-                                Navigation.findNavController(view).navigate(R.id.action_submitFragment_to_viewFragment);
+                                if(bundle != null){
+                                    Navigation.findNavController(view).navigate(R.id.action_submitFragment_to_hubFragment);
+
+                                }
+
                             }
                         },
                         new Response.ErrorListener() {
@@ -123,7 +135,7 @@ public class SubmitFragment extends Fragment {  // WIP, we should be able to upd
         view.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_submitFragment_to_viewFragment);
+                Navigation.findNavController(view).navigateUp();
             }
         });
 

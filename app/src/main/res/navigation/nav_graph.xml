@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_submitFragment_to_viewFragment"
             app:destination="@id/viewFragment" />
+        <action
+            android:id="@+id/action_submitFragment_to_hubFragment"
+            app:destination="@id/hubFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewFragment"
@@ -70,6 +73,9 @@
         <action
             android:id="@+id/action_scanFragment_to_viewFragment"
             app:destination="@id/viewFragment" />
+        <action
+            android:id="@+id/action_scanFragment_to_hubFragment"
+            app:destination="@id/hubFragment" />
     </fragment>
     <fragment
         android:id="@+id/foundCarFragment"
@@ -82,5 +88,8 @@
         <action
             android:id="@+id/action_foundCarFragment_to_hubFragment"
             app:destination="@id/hubFragment" />
+        <action
+            android:id="@+id/action_foundCarFragment_to_scanFragment"
+            app:destination="@id/scanFragment" />
     </fragment>
 </navigation>

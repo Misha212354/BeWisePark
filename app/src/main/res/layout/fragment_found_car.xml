@@ -50,8 +50,10 @@
             android:text="color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/foundModel" />
+            app:layout_constraintTop_toBottomOf="@+id/foundModel"
+            app:layout_constraintVertical_bias="0.958" />
 
         <TextView
             android:id="@+id/foundPN"
@@ -75,6 +77,26 @@
             android:layout_marginTop="21dp"
             app:cornerRadius="50dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/addViolationFromFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="297dp"
+            android:text="Add Violation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonBackFound" />
+
+        <Button
+            android:id="@+id/backToScanButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="374dp"
+            android:layout_marginEnd="59dp"
+            android:text="Scan more"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
