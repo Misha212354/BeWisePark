@@ -101,11 +101,11 @@ public class LoginFragment extends Fragment {
 
                     if(name.isBlank()){
                         nameField.setError("Username is required");
-                        Toast.makeText(getActivity(),"Failed to Login! Please Enter Username",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(),"Failed to Login! Please Enter Username",Toast.LENGTH_SHORT).show();
                     }
                     else if(password.isBlank()) {
                         passwordField.setError("Password is required");
-                        Toast.makeText(getActivity(),"Failed to Login! Please Enter Password.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(),"Failed to Login! Please Enter Password.",Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -129,7 +129,7 @@ public class LoginFragment extends Fragment {
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
-                            Toast.makeText(getActivity(),"Login Successful!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(),"Login Successful!",Toast.LENGTH_SHORT).show();
 
                             loginButton.setEnabled(true);
                             progressBar.setVisibility(View.GONE);
@@ -141,7 +141,7 @@ public class LoginFragment extends Fragment {
                         public void onErrorResponse(VolleyError error) {
                             loginButton.setEnabled(true);
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(getActivity(),"Login Failed! Please Check Username or Password.",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(),"Login Failed! Please Check Username or Password.",Toast.LENGTH_SHORT).show();
                             Log.e("Volley Error", error.toString());
                         }
                     });

@@ -93,12 +93,6 @@ public class HubFragment extends Fragment {
 
         TextView wlcm = view.findViewById(R.id.wlcmHubTextView);
         wlcm.setText(String.format("WELCOME BACK, %s! \nENJOY YOUR DAY!", User.username).toUpperCase());
-//        view.findViewById(R.id.hubToSubmitButton).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Navigation.findNavController(view).navigate(R.id.action_hubFragment_to_submitFragment);
-//            }
-//        });
 
         view.findViewById(R.id.hubToScanButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,8 +105,9 @@ public class HubFragment extends Fragment {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v4) {
-                //TODO: clear all the data from the previous user.
-                Navigation.findNavController(view).navigate(R.id.action_hubFragment_to_loginFragment);
+                getActivity().finish();
+                getActivity().startActivity(getActivity().getIntent());
+                Toast.makeText(getActivity(), "Logged Out", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -157,7 +152,7 @@ public class HubFragment extends Fragment {
                                 }
 
                             }else{
-                                Toast.makeText(getActivity(),"could not pull cars",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(),"could not pull cars",Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);

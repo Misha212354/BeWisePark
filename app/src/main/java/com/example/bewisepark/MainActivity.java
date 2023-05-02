@@ -2,6 +2,8 @@ package com.example.bewisepark;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -15,9 +17,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-
+    public void onBackPressed() {//does not allow back arrow use backstack
     }
+
 
 
 

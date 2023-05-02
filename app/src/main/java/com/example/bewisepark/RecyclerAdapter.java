@@ -6,6 +6,8 @@ import static java.lang.Integer.parseInt;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,6 +68,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     // this method takes in the view and puts in the data into that view. Used to map data to each defined textView in layout
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.fade_in);
+        holder.itemView.startAnimation(animation);
+
         Item item = itemList.get(position);
 
         holder.titleTextView.setText(String.format("VIOLATION ID: %d", item.getViolationId()));
@@ -81,12 +86,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.makeEditText.setText(item.getMake());
         holder.modelEditText.setText(item.getModel());
         holder.plateEditText.setText(item.getPlate_number());
-
-        boolean isExpanded = itemList.get(position).isExpanded();  // isExpanded checks if we expanded a row
+        // isExpanded checks if we expanded a row
+        boolean isExpanded = itemList.get(position).isExpanded();
         boolean isExpendedEdit =  itemList.get(position).isExpendedEdit();
 
-        holder.expandableLayoutEdit.setVisibility(isExpendedEdit ? View.VISIBLE : View.GONE); //FIX THIS PART
-        holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);  // if false expanded row will be invisible and if true then it'll be visible
+        holder.expandableLayoutEdit.setVisibility(isExpendedEdit ? View.VISIBLE : View.GONE);
+        // if false expanded row will be invisible and if true then it'll be visible
+        holder.expandableLayout.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+
     }
 
     // this class is responsible for managing rows and keeps track of what views are present in that row
@@ -119,7 +126,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             makeEditText = itemView.findViewById(R.id.makeEditText);
             modelEditText = itemView.findViewById(R.id.modelEditText);
             plateEditText = itemView.findViewById(R.id.plateEditText);
-
 
 
 
@@ -216,8 +222,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 }
             });
 
-
-            deleteButton.setOnClickListener(new View.OnClickListener() {  // deletes expanded row
+            // deletes expanded row
+            deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view3) {
 //                    itemList.remove(getAdapterPosition());
@@ -229,9 +235,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     AuthRequest authRequest = new AuthRequest(Request.Method.DELETE, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/" + Integer.toString(item.getViolationId()), null, new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            //TODO:check if it was not deleted. It should return json anyway which it will consider as a proper response.
-                            itemList.remove(position);
-                            notifyItemRemoved(position);
+                            try {
+                                if(response.getInt("status") == 0){
+                                    itemList.remove(position);
+                                    notifyItemRemoved(position);
+                                }else{
+                                    Toast.makeText(fragmentActivity.getApplication(), "Could Not Delete", Toast.LENGTH_SHORT);
+                                }
+
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+
                         }
                     }, new Response.ErrorListener() {
                         @Override
