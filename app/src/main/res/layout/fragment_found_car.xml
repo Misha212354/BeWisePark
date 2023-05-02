@@ -18,10 +18,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="176dp"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="177dp"
+            android:fontFamily="sans-serif-medium"
             android:text="model"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/foundMake" />
 
@@ -30,12 +33,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="176dp"
-            android:layout_marginTop="194dp"
+            android:layout_marginTop="180dp"
             android:layout_marginEnd="177dp"
             android:layout_marginBottom="17dp"
+            android:fontFamily="sans-serif-medium"
             android:text="make"
+            android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/foundModel"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,26 +50,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="175dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="178dp"
             android:layout_marginBottom="436dp"
+            android:fontFamily="sans-serif-medium"
             android:text="color"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/foundModel"
-            app:layout_constraintVertical_bias="0.958" />
+            app:layout_constraintTop_toBottomOf="@+id/foundModel" />
 
         <TextView
             android:id="@+id/foundPN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="175dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="178dp"
             android:layout_marginBottom="397dp"
+            android:fontFamily="sans-serif-medium"
             android:text="plate number"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,11 +92,11 @@
             android:id="@+id/backToScanButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="374dp"
-            android:layout_marginEnd="59dp"
+            android:layout_marginTop="39dp"
+            android:layout_marginEnd="52dp"
             android:text="Scan more"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/foundPN" />
 
         <ImageButton
             android:id="@+id/buttonBackFound"

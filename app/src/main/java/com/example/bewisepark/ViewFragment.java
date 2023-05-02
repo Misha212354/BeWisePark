@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -89,80 +91,114 @@ public class ViewFragment extends Fragment {  // this fragment contains our list
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_view, container, false);
         ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(Item.itemList, getActivity());
+        final RecyclerAdapter[] recyclerAdapter = {new RecyclerAdapter(Item.itemList, getActivity())};
 
         TextView titleViolations = view.findViewById(R.id.vlHeaderTextView);
         titleViolations.setText(String.format("The %s's Violation List", User.username).toUpperCase());
 
-//        List<Violation> violationList = new ArrayList<>();
-//        List<Car> carList = new ArrayList<>();
-//        List<Item> itemList = new ArrayList<>();
-//
-//
-//        AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", null, new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        Type violations = new TypeToken<ArrayList<Violation>>() {}.getType();
-//                        Gson gson = new Gson();
-//                        try {
-//                            List<Violation> updatedViolations = gson.fromJson(response.get("data").toString(), violations);
-//                            violationList.clear();
-//                            violationList.addAll(updatedViolations);
-//
-//                        } catch (JSONException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        int x = 1;
-//                    }
-//                });
-//
-//        AuthRequest authRequest1 = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/", null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Type cars = new TypeToken<ArrayList<Car>>() {}.getType();
-//                Gson gson = new Gson();
-//                try {
-//                    System.out.println(response.get("data"));
-//                    List<Car> updatedCars = gson.fromJson(response.get("data").toString(), cars);
-//                    carList.clear();
-//                    carList.addAll(updatedCars);
-//                    for(Violation violation:violationList){
-//                        for(Car car:carList){
-//                            int x = car.getCarId();
-//                            int y = violation.getCarId();
-//                            if(x == y){
-//                                Item item = new Item(violation.getViolationId(), car.getCarId(), violation.getViolation_description(), car.getMake(), car.getModel(), car.getPlate_number());
-//                                itemList.add(item);
-//
-//                            }
-//                        }
-//                    }
-//                    recyclerAdapter.notifyDataSetChanged();
-//
-//                } catch (JSONException e) {
-//                    throw new RuntimeException(e);
-//                }
-//            }
-//        },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        int x = 1;
-//                    }
-//                });
-//        serviceClient.addRequest(authRequest);
-//        serviceClient.addRequest(authRequest1);
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.pullToRefresh);
 
-        recyclerView = view.findViewById(R.id.recyclerView);  // creates the recyclerView
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                List<Violation> violationList = new ArrayList<>();
+                List<Car> carList = new ArrayList<>();
+                Item.itemList = new ArrayList<>();
+                ServiceClient serviceClient = ServiceClient.sharedServiceClient(getActivity().getApplicationContext());
+
+                AuthRequest authRequest1 = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/", null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if(response.getInt("status") == 0){
+                                try {
+                                    Type cars = new TypeToken<ArrayList<Car>>() {}.getType();
+                                    Gson gson = new Gson();
+                                    List<Car> updatedCars = gson.fromJson(response.get("data").toString(), cars);
+                                    carList.clear();
+                                    carList.addAll(updatedCars);
+                                    for(Violation violation:violationList){
+                                        for(Car car:carList){
+                                            int x = car.getCarId();
+                                            int y = violation.getCarId();
+                                            if(x == y){
+                                                Item item = new Item(violation.getViolationId(), car.getCarId(), violation.getViolation_description(), car.getMake(), car.getModel(), car.getPlate_number());
+                                                Item.itemList.add(item);
+
+                                            }
+                                        }
+                                    }
+                                    recyclerAdapter[0] = new RecyclerAdapter(Item.itemList, getActivity());
+                                    recyclerView.setAdapter(recyclerAdapter[0]);
+
+                                    swipeRefreshLayout.setRefreshing(false);
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                            }else{
+                                Toast.makeText(getActivity(),"could not pull cars",Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        int x = 1;
+                    }
+                });
+
+                AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            int status = response.getInt("status");
+                            if( status == 0){
+                                Type violations = new TypeToken<ArrayList<Violation>>() {}.getType();
+                                Gson gson = new Gson();
+                                try {
+                                    List<Violation> updatedViolations = gson.fromJson(response.get("data").toString(), violations);
+                                    violationList.clear();
+                                    violationList.addAll(updatedViolations);
+
+                                    serviceClient.addRequest(authRequest1);
+
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }else{
+                                Toast.makeText(getActivity(),"No Violations Found",Toast.LENGTH_SHORT).show();
+
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                int x = 1;
+                            }
+                        });
+
+
+                serviceClient.addRequest(authRequest);
+
+
+            }
+        });
+
+
+        recyclerView = view.findViewById(R.id.recyclerView );  // creates the recyclerView
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);  // these two ItemDecoration lines just create borders for each item
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setAdapter(recyclerAdapter[0]);
 
         recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
