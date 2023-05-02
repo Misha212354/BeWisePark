@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,7 +129,6 @@ public class HubFragment extends Fragment {
                 view.findViewById(R.id.progressBarHub).setVisibility(View.VISIBLE);
                 toView.setVisibility(View.GONE);
 
-                //TODO: find a better way to call these, this should be in the model layer.
                 AuthRequest authRequest1 = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/", null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -174,17 +174,29 @@ public class HubFragment extends Fragment {
                 AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Type violations = new TypeToken<ArrayList<Violation>>() {}.getType();
-                        Gson gson = new Gson();
                         try {
-                            List<Violation> updatedViolations = gson.fromJson(response.get("data").toString(), violations);
-                            violationList.clear();
-                            violationList.addAll(updatedViolations);
-                            serviceClient.addRequest(authRequest1);
+                            int status = response.getInt("status");
+                            if( status == 0){
+                                Type violations = new TypeToken<ArrayList<Violation>>() {}.getType();
+                                Gson gson = new Gson();
+                                try {
+                                    List<Violation> updatedViolations = gson.fromJson(response.get("data").toString(), violations);
+                                    violationList.clear();
+                                    violationList.addAll(updatedViolations);
 
+                                    serviceClient.addRequest(authRequest1);
+
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }else{
+                                Toast.makeText(getActivity(),"No Violations Found",Toast.LENGTH_SHORT).show();
+                                Navigation.findNavController(view).navigate(R.id.action_hubFragment_to_viewFragment);
+                            }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
+
                     }
                 },
                         new Response.ErrorListener() {

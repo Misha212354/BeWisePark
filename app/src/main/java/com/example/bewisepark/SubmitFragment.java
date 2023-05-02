@@ -101,34 +101,83 @@ public class SubmitFragment extends Fragment {  // WIP, we should be able to upd
             public void onClick(View v) {
                 Gson gson = new Gson();
 
-                Violation violation = new Violation(User.userId, parseInt(carIdEdit.getText().toString()), violationEdit.getText().toString());
+                String carId = carIdEdit.getText().toString();
+                String violationS = violationEdit.getText().toString();
 
-                String violationJ = gson.toJson(violation);
-                JSONObject jsonViolation = null;
-                try {
-                    jsonViolation = new JSONObject(violationJ);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
 
-                AuthRequest authRequest = new AuthRequest(Request.Method.POST, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", jsonViolation, new Response.Listener<JSONObject>(){
-                            public void onResponse(JSONObject response) {
-                                if(bundle != null){
-                                    Navigation.findNavController(view).navigate(R.id.action_submitFragment_to_hubFragment);
+                //Check for blanks
+                if(carId.isBlank() || violationS.isBlank()){
+                    if(carId.isBlank()){
+                        carIdEdit.setError("Id is required");
+                        Toast.makeText(getActivity(),"Failed to save the violation! Please Enter Car ID",Toast.LENGTH_LONG).show();
+                    }
+                    else if(violationS.isBlank()) {
+                        violationEdit.setError("Violation description is required");
+                        Toast.makeText(getActivity(),"Failed to save the violation! Please Enter Violation Description.",Toast.LENGTH_LONG).show();
+                    }
+                }else{
 
+                    Violation violation = new Violation(User.userId, parseInt(carId), violationS);
+
+                    String violationJ = gson.toJson(violation);
+                    JSONObject jsonViolation = null;
+                    try {
+                        jsonViolation = new JSONObject(violationJ);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    AuthRequest authRequest = new AuthRequest(Request.Method.POST, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/violations/", jsonViolation, new Response.Listener<JSONObject>(){
+                        public void onResponse(JSONObject response) {
+                            try {
+                                if(response.getInt("status") == 0){
+                                    //if we got to submit from the scanning the id, by scanning the id we create a bundle.
+                                    if(bundle != null){
+                                        Navigation.findNavController(view).navigate(R.id.action_submitFragment_to_hubFragment);
+                                    }else{
+                                        Navigation.findNavController(view).navigateUp();
+                                    }
+
+                                    Toast.makeText(getActivity(), "Violation Saved", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(getActivity(), "Violation Could Not Be saved", Toast.LENGTH_SHORT).show();
                                 }
-
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
                             }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                int x = 1;
+
+                        }
+                    },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    int x = 1;
+                                }
+                            });
+
+                    //Check if the car in the database.
+                    AuthRequest authRequest1 = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/" + carId, null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                if(response.getInt("status") == 0){
+                                    serviceClient.addRequest(authRequest);
+                                }else{
+                                    Toast.makeText(getActivity(), "Car Does Not Exist", Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
                             }
-                        });
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            int x = 1;
+                        }
+                    });
 
-                serviceClient.addRequest(authRequest);
-
+                    serviceClient.addRequest(authRequest1);
+                }
             }
         });
 

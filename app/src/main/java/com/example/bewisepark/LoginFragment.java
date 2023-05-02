@@ -13,17 +13,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.bewisepark.Model.AuthRequest;
 import com.example.bewisepark.Model.types.User;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -149,9 +146,13 @@ public class LoginFragment extends Fragment {
                         }
                     });
 
-                    AuthRequest.username = name; // Whatever value from the form (use bkrupp for now)
-                    AuthRequest.password = password; // Whatever value from the form (use s3cr3t for now)
+                    AuthRequest.username = name;
+                    AuthRequest.password = password;
+
                     serviceClient.addRequest(authRequest);
+
+
+
 
                 }
 
