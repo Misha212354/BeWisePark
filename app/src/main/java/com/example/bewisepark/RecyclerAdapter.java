@@ -157,10 +157,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     item.setExpendedEdit(!item.isExpendedEdit());
                     notifyItemChanged(getAdapterPosition());
 
-
-
-
-
                 }
             });
 

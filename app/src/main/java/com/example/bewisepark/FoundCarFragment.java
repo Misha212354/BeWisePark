@@ -66,6 +66,8 @@ public class FoundCarFragment extends Fragment {
         String model = bundle.getString("model");
         String color = bundle.getString("color");
         String plate = bundle.getString("plate");
+        String carId = bundle.getString("carId");
+
 
         View view = inflater.inflate(R.layout.fragment_found_car, container, false);
 
@@ -73,11 +75,13 @@ public class FoundCarFragment extends Fragment {
         TextView modelTV = view.findViewById(R.id.foundModel);
         TextView colorTV = view.findViewById(R.id.foundColor);
         TextView plateTV = view.findViewById(R.id.foundPN);
+        TextView carIdTV = view.findViewById(R.id.CarID);
 
-        makeTV.setText(make);
-        modelTV.setText(model);
-        colorTV.setText(color);
-        plateTV.setText(plate);
+        carIdTV.setText(String.format("Car ID: %s", carId.toUpperCase()));
+        makeTV.setText(make.toUpperCase());
+        modelTV.setText(model.toUpperCase());
+        colorTV.setText(color.toUpperCase());
+        plateTV.setText(plate.toUpperCase());
 
         view.findViewById(R.id.buttonBackFound).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +100,7 @@ public class FoundCarFragment extends Fragment {
         view.findViewById(R.id.backToScanButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v3) {
-                Navigation.findNavController(view).navigate(R.id.action_foundCarFragment_to_scanFragment);
+                Navigation.findNavController(view).navigateUp();
             }
         });
 

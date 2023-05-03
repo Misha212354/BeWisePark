@@ -132,7 +132,7 @@ public class ScanFragment extends Fragment {
                     @Override
                     public void run() {
                         Bundle bundle = new Bundle();
-                        String carId = result.getText();
+                        String carId = result.getText().toString();
 
                         AuthRequest authRequest = new AuthRequest(Request.Method.GET, "https://mopsdev.bw.edu/~mterekho20/archHW/www/rest.php/cars/"+carId, null, new Response.Listener<JSONObject>(){
                             @Override
