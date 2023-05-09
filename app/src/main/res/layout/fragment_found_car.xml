@@ -30,7 +30,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/notepad_back">
 
                 <TextView
                     android:id="@+id/textView12"
@@ -40,6 +41,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Plate Number:"
+                    android:textColor="@color/blackish"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -52,6 +54,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Color: "
+                    android:textColor="@color/blackish"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -64,6 +67,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Model: "
+                    android:textColor="@color/blackish"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -76,6 +80,7 @@
                     android:layout_marginTop="80dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Make: "
+                    android:textColor="@color/blackish"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -91,12 +96,14 @@
                     android:paddingRight="50px"
                     android:text="CarID"
                     android:textAlignment="textStart"
+                    android:textColor="@color/blackish"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+
                     android:id="@+id/foundModel"
                     android:layout_width="156dp"
                     android:layout_height="27dp"
@@ -104,6 +111,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="model"
+                    android:textColor="@color/blackish"
                     android:textSize="24sp"
                     app:layout_constraintStart_toEndOf="@+id/textView10"
                     app:layout_constraintTop_toBottomOf="@+id/foundMake" />
@@ -116,6 +124,7 @@
                     android:layout_marginTop="30dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="make"
+                    android:textColor="@color/blackish"
                     android:textSize="24sp"
                     app:layout_constraintStart_toEndOf="@+id/textView8"
                     app:layout_constraintTop_toBottomOf="@+id/CarID" />
@@ -128,6 +137,7 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="plate number"
+                    android:textColor="@color/blackish"
                     android:textSize="24sp"
                     app:layout_constraintStart_toEndOf="@+id/textView12"
                     app:layout_constraintTop_toBottomOf="@+id/foundColor" />
@@ -140,6 +150,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="color"
+                    android:textColor="@color/blackish"
                     android:textSize="24sp"
                     app:layout_constraintStart_toEndOf="@+id/textView11"
                     app:layout_constraintTop_toBottomOf="@+id/foundModel" />
